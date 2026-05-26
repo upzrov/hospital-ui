@@ -1,0 +1,20 @@
+.content {
+  margin: 24px 48px;
+}
+
+.home--photo {
+  //background-image: url("/photo/hospital-1.jpg");
+  position: fixed; /* Фіксує елемент на екрані */
+  top: 0;          /* Прив'язує до верхнього краю */
+  left: 0;         /* Прив'язує до лівого краю */
+  width: 100%;     /* Ширина на весь екран */
+  height: 100vh;   /* Висота на весь екран */
+  z-index: -1;     /* Ховає картинку ЗА інший контент, щоб вона не перекривала текст */
+  overflow: hidden;
+}
+
+.home--photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Робить так, щоб картинка не спотворювалась */
+}
