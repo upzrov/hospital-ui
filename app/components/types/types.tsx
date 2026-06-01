@@ -3,7 +3,9 @@ type Doctor = {
     fullName: string,
     specialty: number,
     email: string,
-    phoneNumber: number,
+    photoUrl: string,
+    gender: number,
+    services: Service[],
 }
 
 type Service = {

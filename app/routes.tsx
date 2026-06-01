@@ -8,7 +8,7 @@ export default [
         route("services", "pages/ServicesPage/ServicesPage.tsx"),
         route("about", "pages/AboutPage/AboutPage.tsx"),
         route("personalAccount", "pages/PersonalAccountPage/PersonalAccountPage.tsx"),
-        route("contact", "routes/contact.tsx"),
+        route("contact", "pages/ContactPage/ContactPage.tsx"),
 
         // route("uikit", "routes/uikit.tsx"),
     ])

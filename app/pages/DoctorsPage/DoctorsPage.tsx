@@ -7,10 +7,15 @@ import {getServices} from "~/api/service";
 
 export default function DoctorsPage() {
     const [doctors, setDoctors] = useState([]);
+    const [services, setServices] = useState([]);
 
     useEffect(() => {
         getDoctors()
             .then(data => setDoctors(data))
+            .catch(e => console.error(e));
+
+        getServices()
+            .then(data => setServices(data))
             .catch(e => console.error(e));
     }, [])
 
@@ -23,7 +28,7 @@ export default function DoctorsPage() {
 
             <div className="doctorsList">
                 {doctors.map((doctor) => (
-                    <DoctorCard doctor={doctor}/>
+                    <DoctorCard doctor={doctor} services={services}/>
                 ))}
             </div>
         </div>

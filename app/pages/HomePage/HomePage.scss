@@ -1,20 +1,117 @@
-.content {
-  margin: 24px 48px;
+/* Основні стилі секції */
+.hero {
+  position: relative;
+  height: 110vh;
+  min-height: 500px;
+
+  background-image:
+          linear-gradient(to bottom, rgba(255, 255, 255, 0) 70%, #ffffff 100%),
+          url('/photo/hospital-2.jpeg');
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.home--photo {
-  //background-image: url("/photo/hospital-1.jpg");
-  position: fixed; /* Фіксує елемент на екрані */
-  top: 0;          /* Прив'язує до верхнього краю */
-  left: 0;         /* Прив'язує до лівого краю */
-  width: 100%;     /* Ширина на весь екран */
-  height: 100vh;   /* Висота на весь екран */
-  z-index: -1;     /* Ховає картинку ЗА інший контент, щоб вона не перекривала текст */
-  overflow: hidden;
-}
 
-.home--photo img {
+
+/* Напівпрозорий шар поверх фото для читабельності тексту */
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.4);
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Робить так, щоб картинка не спотворювалась */
+
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hero-content {
+  max-width: 600px;
+}
+
+.hero-content--text {
+  color: #ffffff;
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+/* Кнопки */
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  padding: 12px 25px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-outline {
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+.btn-outline:hover {
+  background-color: #fff;
+  color: #333;
+}
+
+/* Блок лікарів поверх hero */
+.doctorsList__main {
+  position: relative;
+  z-index: 10;
+
+  margin-top: -70px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+
+  flex-wrap: wrap;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .doctorsList__main {
+    margin-top: -60px;
+  }
 }

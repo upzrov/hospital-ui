@@ -1,6 +1,6 @@
 import './PersonalAccountPage.scss'
 
-import {Registration} from "~/components/Registration/Registration";
+import {Registration} from "~/components/SignUp/Registration";
 import {SignIn} from "~/components/SignIn/SignIn";
 
 export default function ContactPage() {
