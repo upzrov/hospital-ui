@@ -1,9 +1,13 @@
-export const getSpecialties = async () => {
-    const response = await fetch("http://localhost:5141/Lookup/specialties");
+import type { Specialties } from "~/types";
 
-    if (!response.ok) {
-        throw new Error("Failed to fetch doctors");
-    }
+export async function getSpecialties(): Promise<Specialties[]> {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/Lookup/specialties`,
+  );
 
-    return response.json();
-};
+  if (!response.ok) {
+    throw new Error("Failed to fetch doctors");
+  }
+
+  return response.json();
+}

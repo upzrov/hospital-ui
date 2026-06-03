@@ -1,36 +1,28 @@
-import './ServicesPage.scss'
+import "./ServicesPage.scss";
 
-import {ServiceCard} from "~/components/ServicesCard/ServicesCard";
-import React, {useEffect, useState} from "react";
-import {getServices} from "~/api/service";
-import {getDoctors} from "~/api/doctor";
-import {getSpecialties} from "~/api/specialties";
+import { getDoctors } from "~/api/doctor";
+import { getServices } from "~/api/service";
+import { ServiceCard } from "~/components/ServicesCard/ServicesCard";
+import type { Route } from "./+types/ServicesPage";
 
-export default function ServicesPage() {
-    const [doctors, setDoctors] = useState([]);
-    const [services, setServices] = useState([]);
-    const [specialties, setSpecialties] = useState([]);
+export async function loader() {
+  return Promise.all([getDoctors(), getServices()]);
+}
 
-    useEffect(() => {
-        getDoctors()
-            .then(data => setDoctors(data))
-            .catch(e => console.error(e));
+export default function ServicesPage({ loaderData }: Route.ComponentProps) {
+  const [doctors, services] = loaderData;
 
-        getServices()
-            .then(data => setServices(data))
-            .catch(e => console.error(e));
-        getSpecialties()
-            .then(data => setServices(data))
-            .catch(e => console.error(e));
-    }, [])
-
-    return (
-        <div className='content'>
-            <div className='servicesList'>
-                {services.map((service) => (
-                    <ServiceCard service={service} doctors={doctors}/>
-                ))}
-            </div>
-        </div>
-    )
+  return (
+    <div>
+      <div className="servicesList">
+        {services.map((service) => (
+          <ServiceCard
+            service={service}
+            doctors={doctors}
+            key={service.serviceId}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }

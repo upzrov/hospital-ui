@@ -1,81 +1,53 @@
-import './HomePage.scss'
+import "./HomePage.scss";
 
-import type { Route } from "../../../.react-router/types/app/routes/+types";
 import DoctorCard from "~/components/DoctorCard/DoctorCard";
 import { NavLink } from "react-router";
-import { useEffect, useState } from "react";
+import type { Route } from "./+types/HomePage";
+import { getDoctors } from "~/api";
 
-import { getDoctors } from "~/api/doctor";
-import { getServices } from "~/api/service";
-import { getSpecialties } from "~/api/specialties";
-
-
-export function meta({ }: Route.MetaArgs) {
-    return [
-        { title: "New React Router App" },
-        { name: "description", content: "Welcome to React Router!" },
-    ];
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Medical Center" },
+    { name: "description", content: "Welcome to Medical Center!" },
+  ];
 }
 
-export default function HomePage() {
+export const loader = getDoctors;
 
-    const [doctors, setDoctors] = useState<Doctor[]>([]);
-    const [services, setServices] = useState<Service[]>([]);
-    const [specialties, setSpecialties] = useState<Specialties[]>([]);
+export default function HomePage({ loaderData }: Route.ComponentProps) {
+  const doctors = loaderData;
 
-    useEffect(() => {
-        getDoctors()
-            .then(data => setDoctors(data))
-            .catch(e => console.error(e));
+  return (
+    <div className="content">
+      <section className="hero">
+        <div className="hero-overlay">
+          <div className="container">
+            <div className="hero-content">
+              <div className="hero-content--text">
+                Тут починається ваше здоров'я
+              </div>
+              <p>
+                Сучасна медицина, професійні лікарі та турбота про кожного
+                пацієнта. Ми поруч, коли це важливо.
+              </p>
 
-        getServices()
-            .then(data => setServices(data))
-            .catch(e => console.error(e));
-
-        getSpecialties()
-            .then(data => setSpecialties(data))
-            .catch(e => console.error(e));
-    }, []);
-
-    return (
-        <div className="content">
-
-            <section className="hero">
-                <div className="hero-overlay">
-                    <div className="container">
-                        <div className="hero-content">
-                            <div className="hero-content--text">
-                                Тут починається ваше здоров'я
-                            </div>
-
-                            <p>
-                                Сучасна медицина, професійні лікарі та турбота про кожного пацієнта.
-                                Ми поруч, коли це важливо.
-                            </p>
-
-                            <div className="hero-buttons">
-                                <NavLink to="/doctors" className="btn btn-primary">
-                                    Записатися на прийом
-                                </NavLink>
-                                <NavLink to="/services" className="btn btn-outline">
-                                    Наші послуги
-                                </NavLink>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <div className="doctorsList__main">
-                {doctors.map((doctor) => (
-                    <DoctorCard
-                        doctor={doctor}
-                        services={services}
-                        specialties={specialties}
-                    />
-                ))}
+              <div className="hero-buttons">
+                <NavLink to={"/doctors"} className="btn btn-primary">
+                  Записатися на прийом
+                </NavLink>
+                <NavLink to={"/services"} className="btn btn-outline">
+                  Наші послуги
+                </NavLink>
+              </div>
             </div>
-
+          </div>
         </div>
-    );
+      </section>
+
+      <div className="doctorsList__main">
+        <DoctorCard doctor={doctors.at(0)!} />
+        <DoctorCard doctor={doctors.at(1)!} />
+      </div>
+    </div>
+  );
 }
