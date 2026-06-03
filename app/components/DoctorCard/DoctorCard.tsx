@@ -3,13 +3,12 @@ import React from "react";
 
 type Props = {
     doctor: Doctor,
-    services: Service[],
+    services?: Service[],
+    specialties?: Specialties[],
 }
 
-export const DoctorCard: React.FC<Props> = ({doctor, services}) => {
-    console.log('services', services);
-
-    const specialty: Service[] = services.filter(service => service.serviceId === doctor.specialty)
+export const DoctorCard: React.FC<Props> = ({doctor, services = [], specialties = []}) => {
+    const specialty = specialties?.find((s: Specialties) => s.id === doctor.specialty);
 
     return (
         <div className="doctor-card">
@@ -22,11 +21,11 @@ export const DoctorCard: React.FC<Props> = ({doctor, services}) => {
                 <div className="info-header">
                     <div className="info-main">
                         <h2 className="doctor-name">{doctor.fullName}</h2>
-                        <p className="specialization">{doctor.specialty}</p>
+                        <p className="specialization">{specialty?.name ?? ''}</p>
                     </div>
                 </div>
                 <div className="info-footer">
-                    <button className="book-btn">Записатися</button>
+                    <button className="book-btn" onClick={() => console.log('sdfsdf')}>Записатися</button>
                 </div>
             </div>
         </div>

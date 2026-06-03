@@ -16,3 +16,8 @@ type Service = {
     durationMinutes: number,
     specialty: number,
 }
+
+type Specialties = {
+    id: number,
+    name: string,
+}

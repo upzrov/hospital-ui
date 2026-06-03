@@ -11,14 +11,33 @@ export function meta({}: Route.MetaArgs) {
     ];
 }
 
-const sdfsdf = {
-
+const doc = {
     "doctorId": 1,
-    "fullName": "Dr. John Smith",
+    "fullName": "Іван Петренко",
     "specialty": 0,
-    "email": "john.smith@hospital.com",
-    "phoneNumber": "+380501112233"
-
+    "email": "ivan@hospital.com",
+    "photoUrl": "https://randomuser.me/api/portraits/men/32.jpg",
+    "gender": 0,
+    "workStart": "09:00:00",
+    "workEnd": "18:00:00",
+    "services": [
+        {
+            "serviceId": 1,
+            "name": "Консультація терапевта",
+            "description": "Загальна консультація лікаря",
+            "price": 50.0,
+            "durationMinutes": 30,
+            "specialty": 0
+        },
+        {
+            "serviceId": 2,
+            "name": "Огляд терапевта з аналізами",
+            "description": "Консультація та необхідні аналізи",
+            "price": 100.0,
+            "durationMinutes": 40,
+            "specialty": 0
+        }
+    ]
 }
 
 export default function HomePage() {
@@ -43,8 +62,8 @@ export default function HomePage() {
             </section>
 
             <div className="doctorsList__main">
-                <DoctorCard doctor={sdfsdf}/>
-                <DoctorCard doctor={sdfsdf}/>
+                <DoctorCard doctor={doc}/>
+                <DoctorCard doctor={doc}/>
             </div>
 
 

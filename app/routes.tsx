@@ -10,6 +10,7 @@ export default [
         route("personalAccount", "pages/PersonalAccountPage/PersonalAccountPage.tsx"),
         route("contact", "pages/ContactPage/ContactPage.tsx"),
 
+
         // route("uikit", "routes/uikit.tsx"),
     ])
 ] satisfies RouteConfig;

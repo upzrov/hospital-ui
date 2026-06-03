@@ -1,70 +1,79 @@
-import './SignIn.scss'
-import '../../styles/text.scss'
-import 'bulma/css/bulma.css'
-import { useState } from "react";
+import './SignIn.scss';
+import '../../styles/text.scss';
+import 'bulma/css/bulma.css';
 
-export const SignIn = () => {
+import { useState } from 'react';
 
+type Props = {
+    isOpen: boolean;
+    onClose: () => void;
+};
+
+export const SignIn = ({ isOpen, onClose }: Props) => {
     const [form, setForm] = useState({
-        email: "",
-        password: ""
+        email: '',
+        password: '',
     });
+
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({
             ...form,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        if (!form.email.trim() || !form.password.trim()) {
+            alert('Заповніть всі поля');
+            return;
+        }
+
         try {
-            const response = await fetch("http://localhost:5141/Auth/sign-in", {
-                method: "POST",
+            setLoading(true);
+
+            const response = await fetch('http://localhost:5141/Auth/sign-in', {
+                method: 'POST',
                 headers: {
-                    "Content-Type": "application/json"
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(form)
+                body: JSON.stringify(form),
             });
 
             if (!response.ok) {
-                const error = await response.json();
-                console.error("Login error:", error);
-                alert("Невірний email або пароль");
+                alert('Невірний email або пароль');
                 return;
             }
 
-            let data = null;
+            const data = await response.json();
 
-            const text = await response.text();
-            if (text) {
-                data = JSON.parse(text);
+            if (data.token) {
+                localStorage.setItem('token', data.token);
             }
 
-            console.log("LOGIN SUCCESS:", data);
-            console.log("LOGIN SUCCESS:", data);
-
-            alert("Успішний вхід!");
-
-            // TODO: тут потім буде JWT
-            // localStorage.setItem("token", data.token);
-
+            alert('Успішний вхід!');
+            onClose(); // закриваємо модалку після логіну
         } catch (error) {
-            console.error("Network error:", error);
+            console.error(error);
+            alert('Помилка зʼєднання із сервером');
+        } finally {
+            setLoading(false);
         }
     };
 
+    if (!isOpen) return null;
+
     return (
-        <div className="signIn--block">
-            <p className="title signIn--title">Вхід</p>
+        <div className="overlay" onClick={onClose}>
+            <div className="modal" onClick={(e) => e.stopPropagation()}>
+                <p className="title signIn--title">Вхід</p>
 
-            <form onSubmit={handleSubmit}>
-
-                <div className="field">
-                    <label className="label">Пошта:</label>
-                    <div className="control">
+                <form onSubmit={handleSubmit}>
+                    <div className="field">
+                        <label className="label">Пошта:</label>
                         <input
                             className="input"
                             type="email"
@@ -73,11 +82,9 @@ export const SignIn = () => {
                             onChange={handleChange}
                         />
                     </div>
-                </div>
 
-                <div className="field">
-                    <label className="label">Пароль:</label>
-                    <div className="control">
+                    <div className="field">
+                        <label className="label">Пароль:</label>
                         <input
                             className="input"
                             type="password"
@@ -86,21 +93,28 @@ export const SignIn = () => {
                             onChange={handleChange}
                         />
                     </div>
-                </div>
 
-                <div className="field field-center">
-                    <p className="control">
-                        <button className="button is-success" type="submit">
+                    <div className="buttons">
+                        <button
+                            className={`button is-success ${
+                                loading ? 'is-loading' : ''
+                            }`}
+                            type="submit"
+                            disabled={loading}
+                        >
                             Ввійти
                         </button>
-                    </p>
 
-                    <h6 className="text--addText text--small">
-                        В мене ще немає профілю
-                    </h6>
-                </div>
-
-            </form>
+                        <button
+                            className="button is-light"
+                            type="button"
+                            onClick={onClose}
+                        >
+                            Закрити
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };

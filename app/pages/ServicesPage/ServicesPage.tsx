@@ -1,22 +1,36 @@
+import './ServicesPage.scss'
+
 import {ServiceCard} from "~/components/ServicesCard/ServicesCard";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {getServices} from "~/api/service";
+import {getDoctors} from "~/api/doctor";
+import {getSpecialties} from "~/api/specialties";
 
 export default function ServicesPage() {
-    const [services, setServices] = React.useState<[]>([]);
+    const [doctors, setDoctors] = useState([]);
+    const [services, setServices] = useState([]);
+    const [specialties, setSpecialties] = useState([]);
 
     useEffect(() => {
+        getDoctors()
+            .then(data => setDoctors(data))
+            .catch(e => console.error(e));
+
         getServices()
-            .then((services) => setServices(services))
+            .then(data => setServices(data))
+            .catch(e => console.error(e));
+        getSpecialties()
+            .then(data => setServices(data))
             .catch(e => console.error(e));
     }, [])
 
     return (
         <div>
-            <h1>Services Page</h1>
-            {services.map((service) => (
-                <ServiceCard service={service}/>
-            ))}
+            <div className='servicesList'>
+                {services.map((service) => (
+                    <ServiceCard service={service} doctors={doctors}/>
+                ))}
+            </div>
         </div>
     )
 }
