@@ -25,7 +25,7 @@ export default function ServicesPage() {
     }, [])
 
     return (
-        <div>
+        <div className='content'>
             <div className='servicesList'>
                 {services.map((service) => (
                     <ServiceCard service={service} doctors={doctors}/>
