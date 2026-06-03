@@ -11,6 +11,13 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import { getRole } from "./api";
 
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Medical Center" },
+    { name: "description", content: "Welcome to Medical Center!" },
+  ];
+}
+
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -44,7 +51,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export async function loader() {
   try {
-    // ["Administrator", "Manager", "Patient", "Doctor"]
     const user = await getRole();
     return { user };
   } catch (error) {

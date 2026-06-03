@@ -1,3 +1,5 @@
+import type { Role } from "~/types/auth";
+
 export async function signIn(form: { email: string; password: string }) {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Auth/sign-in`,
@@ -11,11 +13,8 @@ export async function signIn(form: { email: string; password: string }) {
   );
 
   if (!response.ok) {
-    alert("Невірний email або пароль");
-    return;
+    throw new Error("Невірний email або пароль");
   }
-
-  return response.json();
 }
 
 export async function signUp(form: {
@@ -38,9 +37,7 @@ export async function signUp(form: {
   );
 
   if (!response.ok) {
-    const errorData = await response.json();
-    console.error("Error:", errorData);
-    return;
+    throw new Error("Невірний email або пароль");
   }
 
   const data = await response.json();
@@ -49,13 +46,26 @@ export async function signUp(form: {
   alert("Реєстрація успішна!");
 }
 
-export async function getRole() {
+export async function signOut() {
   const response = await fetch(
-    `${import.meta.env.VITE_API_BASE_URL}/Auth/role`,
+    `${import.meta.env.VITE_API_BASE_URL}/Auth/sign-out`,
+    { method: "POST" },
   );
 
   if (!response.ok) {
-    console.error(await response.json());
+    throw new Error("Failed to sign out");
+  }
+}
+
+export async function getRole(): Promise<Role> {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/Auth/role`,
+    { credentials: "include" },
+  );
+
+  if (!response.ok) {
     throw new Error("Failed to fetch user role, user may be unathorized");
   }
+
+  return await response.json();
 }
