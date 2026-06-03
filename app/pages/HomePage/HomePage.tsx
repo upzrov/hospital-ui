@@ -5,13 +5,6 @@ import { NavLink } from "react-router";
 import type { Route } from "./+types/HomePage";
 import { getDoctors } from "~/api";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "Medical Center" },
-    { name: "description", content: "Welcome to Medical Center!" },
-  ];
-}
-
 export const loader = getDoctors;
 
 export default function HomePage({ loaderData }: Route.ComponentProps) {

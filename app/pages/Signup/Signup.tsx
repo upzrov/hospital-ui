@@ -1,6 +1,7 @@
 import "./Signup.scss";
 import "bulma/css/bulma.css";
 import { useState } from "react";
+import { Link } from "react-router";
 import { signUp } from "~/api";
 
 export const Signup = () => {
@@ -115,7 +116,9 @@ export const Signup = () => {
             </button>
           </p>
 
-          <h6 className="text--addText text--small">В мене ще немає профілю</h6>
+          <span className="text--addText text--small">
+            <Link to="/signin">В мене ще немає профілю</Link>
+          </span>
         </div>
       </form>
     </div>

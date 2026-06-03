@@ -1,12 +1,20 @@
+import { useOutletContext } from "react-router";
 import "./PersonalAccountPage.scss";
-
-import { Signup } from "~/components/Signup/Signup";
-import { Signin } from "~/components/Signin/Signin";
+import type { Role } from "~/types/auth";
+import { Link } from "react-router";
+import { Signout } from "~/components/Signout/Signout";
 
 export default function ContactPage() {
+  const { user } = useOutletContext<{ user: Role | null }>();
+
   return (
     <div>
       <h1>ContactPage</h1>
+
+      <span className="text--addText text--small">
+        <Link to="/signin">Автентифікація</Link>
+      </span>
+      {user && <Signout />}
 
       <div>
         <section className="section">
@@ -178,13 +186,6 @@ export default function ContactPage() {
             </form>
           </div>
         </section>
-      </div>
-
-      <div className="registration">
-        <Signup />
-      </div>
-      <div className="signIn">
-        <Signin isOpen={true} onClose={() => {}} />
       </div>
     </div>
   );
