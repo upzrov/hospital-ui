@@ -56,10 +56,7 @@ export async function assignServiceToDoctor(
 export async function deleteDoctor(id: number) {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Doctor/${id}`,
-    {
-      method: "DELETE",
-      credentials: "include",
-    },
+    { method: "DELETE", credentials: "include" },
   );
 
   if (!response.ok) {
@@ -79,9 +76,7 @@ export async function updateDoctor(
     `${import.meta.env.VITE_API_BASE_URL}/Doctor/${id}`,
     {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: JSON.stringify(form),
     },

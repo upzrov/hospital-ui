@@ -19,9 +19,7 @@ export async function createService(form: {
 }) {
   const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/Service`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     credentials: "include",
     body: JSON.stringify(form),
   });
@@ -34,10 +32,7 @@ export async function createService(form: {
 export async function deleteService(id: number) {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Service/${id}`,
-    {
-      method: "DELETE",
-      credentials: "include",
-    },
+    { method: "DELETE", credentials: "include" },
   );
 
   if (!response.ok) {

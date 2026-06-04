@@ -9,9 +9,7 @@ export async function createAppointment(form: {
     `${import.meta.env.VITE_API_BASE_URL}/Appointment`,
     {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: JSON.stringify(form),
     },
@@ -25,9 +23,7 @@ export async function createAppointment(form: {
 export async function getAllAppointments(): Promise<Appointment[]> {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Appointment`,
-    {
-      credentials: "include",
-    },
+    { credentials: "include" },
   );
 
   if (!response.ok) {
@@ -69,9 +65,7 @@ export async function getPatientAppointments(): Promise<Appointment[]> {
 export async function getDoctorAppointments(): Promise<Appointment[]> {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Appointment/doctor/appointments`,
-    {
-      credentials: "include",
-    },
+    { credentials: "include" },
   );
 
   if (!response.ok) {
@@ -95,9 +89,7 @@ export async function getAvailableSlots(params: {
 
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Appointment/available-slots?${queryParams.toString()}`,
-    {
-      credentials: "include",
-    },
+    { credentials: "include" },
   );
 
   if (!response.ok) {
