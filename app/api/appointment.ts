@@ -75,26 +75,26 @@ export async function getDoctorAppointments(): Promise<Appointment[]> {
   return (await response.json()) as Appointment[];
 }
 
-export async function getAvailableSlots(params: {
-  doctorId: number;
-  serviceId: number;
-  date: string;
-}): Promise<AvailableSlot[]> {
-  // URLSearchParams cleanly handles encoding the query parameters
-  const queryParams = new URLSearchParams({
-    doctorId: params.doctorId.toString(),
-    serviceId: params.serviceId.toString(),
-    date: params.date,
-  });
-
-  const response = await fetch(
-    `${import.meta.env.VITE_API_BASE_URL}/Appointment/available-slots?${queryParams.toString()}`,
-    { credentials: "include" },
-  );
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch available slots");
-  }
-
-  return (await response.json()) as AvailableSlot[];
-}
+// export async function getAvailableSlots(params: {
+//   doctorId: number;
+//   serviceId: number;
+//   date: string;
+// }): Promise<AvailableSlot[]> {
+//   // URLSearchParams cleanly handles encoding the query parameters
+//   const queryParams = new URLSearchParams({
+//     doctorId: params.doctorId.toString(),
+//     serviceId: params.serviceId.toString(),
+//     date: params.date,
+//   });
+//
+//   const response = await fetch(
+//     `${import.meta.env.VITE_API_BASE_URL}/Appointment/available-slots?${queryParams.toString()}`,
+//     { credentials: "include" },
+//   );
+//
+//   if (!response.ok) {
+//     throw new Error("Failed to fetch available slots");
+//   }
+//
+//   return (await response.json()) as AvailableSlot[];
+// }

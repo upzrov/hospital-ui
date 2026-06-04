@@ -1,0 +1,128 @@
+.doctor-detail-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1100px;
+  margin: 40px auto;
+  background: #fff;
+  border: 1px solid #e0e6ed;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  transition: 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.12);
+  }
+
+  &__top {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+  }
+
+  &__image {
+    img {
+      width: 220px;
+      height: 220px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 2px solid #e0e6ed;
+    }
+  }
+
+  &__main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__name {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a237e;
+    margin: 0;
+
+    span {
+      font-weight: 400;
+    }
+  }
+
+  &__specialty {
+    font-size: 18px;
+    color: #5c6bc0;
+    font-weight: 600;
+  }
+
+  &__email {
+    font-size: 16px;
+    color: #37474f;
+  }
+
+  &__schedule {
+    margin-top: 8px;
+    font-size: 16px;
+    color: #455a64;
+
+    span {
+      font-weight: 600;
+      color: #1a237e;
+    }
+  }
+
+  &__bottom {
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    .service {
+      background: #eef2ff;
+      color: #3949ab;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  &__btn {
+    padding: 12px 22px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    transition: 0.2s;
+
+    &--book {
+      background: #c62828;
+      color: #fff;
+
+      &:hover {
+        background: #b71c1c;
+      }
+    }
+
+    &--secondary {
+      background: #eceff1;
+      color: #263238;
+
+      &:hover {
+        background: #cfd8dc;
+      }
+    }
+  }
+}

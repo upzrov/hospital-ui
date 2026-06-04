@@ -13,7 +13,9 @@ export default [
     route("signup", "pages/Signup/Signup.tsx"),
 
     route("doctors", "pages/DoctorsPage/DoctorsPage.tsx"),
+    route("doctors/:id", "pages/DoctorInfo/DoctorInfo.tsx"),
     route("services", "pages/ServicesPage/ServicesPage.tsx"),
+    route("services/:id", "pages/ServicesInfo/ServicesInfo.tsx"),
     route("about", "pages/AboutPage/AboutPage.tsx"),
 
     route("profile", "pages/Profile/Profile.tsx"),
