@@ -1,6 +1,7 @@
 import "./Signup.scss";
 import "bulma/css/bulma.css";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { Link } from "react-router";
 import { signUp } from "~/api";
 
@@ -14,6 +15,8 @@ export const Signup = () => {
     email: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
       ...form,
@@ -24,6 +27,7 @@ export const Signup = () => {
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     await signUp(form);
+    navigate("/");
   };
 
   return (

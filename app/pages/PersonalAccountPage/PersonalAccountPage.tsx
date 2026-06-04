@@ -9,11 +9,8 @@ export default function ContactPage() {
 
   return (
     <div>
-      <h1>ContactPage</h1>
+      <h1>Personal Page</h1>
 
-      <span className="text--addText text--small">
-        <Link to="/signin">Автентифікація</Link>
-      </span>
       {user && <Signout />}
 
       <div>

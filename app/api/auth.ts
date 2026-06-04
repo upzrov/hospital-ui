@@ -8,6 +8,7 @@ export async function signIn(form: { email: string; password: string }) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(form),
     },
   );
@@ -32,6 +33,7 @@ export async function signUp(form: {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(form),
     },
   );
@@ -49,7 +51,7 @@ export async function signUp(form: {
 export async function signOut() {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Auth/sign-out`,
-    { method: "POST" },
+    { method: "POST", credentials: "include" },
   );
 
   if (!response.ok) {
@@ -67,5 +69,6 @@ export async function getRole(): Promise<Role> {
     throw new Error("Failed to fetch user role, user may be unathorized");
   }
 
-  return await response.json();
+  const role = (await response.text()) as Role;
+  return role;
 }

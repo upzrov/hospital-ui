@@ -10,11 +10,12 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import { getRole } from "./api";
+import { useEffect } from "react";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Medical Center" },
-    { name: "description", content: "Welcome to Medical Center!" },
+    { title: "MedicalCenter" },
+    { name: "description", content: "Welcome to MedicalCenter!" },
   ];
 }
 
@@ -49,7 +50,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export async function loader() {
+export async function clientLoader() {
   try {
     const user = await getRole();
     return { user };
@@ -61,6 +62,10 @@ export async function loader() {
 
 export default function App({ loaderData }: Route.ComponentProps) {
   const { user } = loaderData;
+
+  useEffect(() => {
+    console.log(user); // logs null
+  }, []);
 
   return <Outlet context={{ user }} />;
 }

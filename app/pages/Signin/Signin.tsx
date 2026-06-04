@@ -5,6 +5,7 @@ import "bulma/css/bulma.css";
 import { useState } from "react";
 import { signIn } from "~/api";
 import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
 export const Signin = () => {
   const [form, setForm] = useState({
@@ -21,6 +22,8 @@ export const Signin = () => {
     });
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -32,6 +35,7 @@ export const Signin = () => {
     try {
       setLoading(true);
       await signIn(form);
+      navigate("/");
     } catch (error) {
       alert(error);
     } finally {
