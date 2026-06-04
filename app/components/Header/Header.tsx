@@ -28,7 +28,7 @@ export const Header = () => {
 
       <div className="header__secondary">
         {user ? (
-          <NavLink className="header--name" to="/personalAccount">
+          <NavLink className="header--name" to="/profile">
             <p>Мій кабінет</p>
           </NavLink>
         ) : (

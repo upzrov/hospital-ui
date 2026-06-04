@@ -1,7 +1,7 @@
+import "./Profile.scss";
+
 import { useOutletContext } from "react-router";
-import "./PersonalAccountPage.scss";
 import type { Role } from "~/types/auth";
-import { Link } from "react-router";
 import { Signout } from "~/components/Signout/Signout";
 
 export default function ContactPage() {
@@ -9,7 +9,7 @@ export default function ContactPage() {
 
   return (
     <div>
-      <h1>Personal Page</h1>
+      <h1>Profile</h1>
 
       {user && <Signout />}
 

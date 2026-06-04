@@ -14,7 +14,7 @@ export async function signIn(form: { email: string; password: string }) {
   );
 
   if (!response.ok) {
-    throw new Error("Невірний email або пароль");
+    throw new Error("Неправильний email або пароль");
   }
 }
 
@@ -39,13 +39,8 @@ export async function signUp(form: {
   );
 
   if (!response.ok) {
-    throw new Error("Невірний email або пароль");
+    throw new Error("Неправильний email або пароль");
   }
-
-  const data = await response.json();
-  console.log("SUCCESS:", data);
-
-  alert("Реєстрація успішна!");
 }
 
 export async function signOut() {
@@ -69,6 +64,5 @@ export async function getRole(): Promise<Role> {
     throw new Error("Failed to fetch user role, user may be unathorized");
   }
 
-  const role = (await response.text()) as Role;
-  return role;
+  return (await response.text()) as Role;
 }

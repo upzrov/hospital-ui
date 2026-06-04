@@ -26,7 +26,13 @@ export const Signup = () => {
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await signUp(form);
+    try {
+      await signUp(form);
+      alert("Реєстрація успішна!");
+    } catch {
+      alert("Неправильно заповнена форма");
+    }
+
     navigate("/");
   };
 

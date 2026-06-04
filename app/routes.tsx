@@ -16,10 +16,7 @@ export default [
     route("services", "pages/ServicesPage/ServicesPage.tsx"),
     route("about", "pages/AboutPage/AboutPage.tsx"),
 
-    route(
-      "personalAccount",
-      "pages/PersonalAccountPage/PersonalAccountPage.tsx",
-    ),
+    route("profile", "pages/Profile/Profile.tsx"),
     route("contact", "pages/ContactPage/ContactPage.tsx"),
   ]),
 ] satisfies RouteConfig;

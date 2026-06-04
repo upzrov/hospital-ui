@@ -63,10 +63,6 @@ export async function clientLoader() {
 export default function App({ loaderData }: Route.ComponentProps) {
   const { user } = loaderData;
 
-  useEffect(() => {
-    console.log(user); // logs null
-  }, []);
-
   return <Outlet context={{ user }} />;
 }
 
