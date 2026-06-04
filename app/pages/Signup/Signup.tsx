@@ -98,7 +98,7 @@ export const Signup = () => {
           <div className="control">
             <input
               className="input"
-              // type="password"
+              type="password"
               name="password"
               value={form.password}
               onChange={handleChange}
