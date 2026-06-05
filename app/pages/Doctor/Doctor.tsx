@@ -1,16 +1,14 @@
 import "./Doctor.scss";
 
-import { getDoctors, getServices, getSpecialties } from "~/api";
+import { getDoctor, getSpecialties } from "~/api";
 import type { Route } from "./+types/Doctor";
 
-export async function clientLoader() {
-  return Promise.all([getDoctors(), getServices(), getSpecialties()]);
+export async function clientLoader({ params }: Route.ComponentProps) {
+  return Promise.all([getDoctor(Number(params.id)), getSpecialties()]);
 }
 
-export default function Doctor({ params, loaderData }: Route.ComponentProps) {
-  const [doctors, services, specialties] = loaderData;
-
-  const doctor = doctors.find((d) => d.doctorId === Number(params.doctorId));
+export default function Doctor({ loaderData }: Route.ComponentProps) {
+  const [doctor, specialties] = loaderData;
 
   if (!doctor) {
     return (
@@ -23,7 +21,6 @@ export default function Doctor({ params, loaderData }: Route.ComponentProps) {
   const specialty = specialties.find((sp) => sp.id === doctor.specialty);
 
   const workStart = doctor.workStart ? doctor.workStart.slice(0, 5) : "—";
-
   const workEnd = doctor.workEnd ? doctor.workEnd.slice(0, 5) : "—";
 
   return (

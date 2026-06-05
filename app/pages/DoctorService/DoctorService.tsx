@@ -2,26 +2,17 @@ import "./DoctorService.scss";
 
 import type { Route } from "./+types/DoctorService";
 
-import {
-  getAvailableSlots,
-  getDoctors,
-  getServices,
-  getSpecialties,
-} from "~/api";
+import { getAvailableSlots, getDoctor, getSpecialties } from "~/api";
 
 export async function clientLoader({ params }: Route.LoaderArgs) {
   const doctorId = Number(params.doctorId);
   const serviceId = Number(params.serviceId);
 
-  if (Number.isNaN(serviceId)) {
-  }
-
   const date = new Date();
   date.setDate(date.getDate() + 1);
 
   return Promise.all([
-    getDoctors(),
-    getServices(),
+    getDoctor(doctorId),
     getSpecialties(),
     getAvailableSlots({
       doctorId,
@@ -35,9 +26,7 @@ export default function DoctorService({
   params,
   loaderData,
 }: Route.ComponentProps) {
-  const [doctors, services, specialties, slots] = loaderData;
-
-  const doctor = doctors.find((d) => d.doctorId === Number(params.doctorId));
+  const [doctor, specialties, slots] = loaderData;
 
   if (!doctor) {
     return (
@@ -86,7 +75,7 @@ export default function DoctorService({
           )}
         </div>
 
-        {/* TODO: Render slots here */}
+        {/* TODO: Render slots somewhere here */}
       </div>
     </div>
   );
