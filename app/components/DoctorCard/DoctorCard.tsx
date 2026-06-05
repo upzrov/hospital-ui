@@ -38,7 +38,6 @@ export const DoctorCard: React.FC<Props> = ({
                 </div>
                 <div className="info-footer">
                     <button
-                        // to={`/doctors/${doctor.doctorId}`}
                         className="book-btn"
                         onClick={() => {
                             if (user) {

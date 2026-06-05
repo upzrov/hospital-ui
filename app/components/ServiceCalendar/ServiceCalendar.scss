@@ -1,0 +1,96 @@
+/* Допоміжний клас для приховування стандартного кружечка інпута */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Нові стилі для календаря */
+.service-calendar {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr); /* Ділить простір порівну між усіма днями */
+  grid-auto-flow: column;
+  gap: 16px;
+  padding: 8px 0 20px 0;
+  border-bottom: 1px solid #e0e6ed;
+  overflow-x: auto; /* Якщо днів забагато, з'явиться гарний горизонтальний скрол */
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    min-width: 90px; /* Захист від занадто вузьких стовпчиків */
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 6px;
+  }
+
+  &__day-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #707d8a;
+  }
+
+  &__day-date {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a237e;
+  }
+
+  &__slots {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Стилізація часових слотів (плашки) */
+  &__chip {
+    display: block;
+    padding: 12px 6px;
+    background: #f0f4f9; // Світла плашка
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #4a5568;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #e2e8f0;
+    }
+
+    /* Стиль для обраного слоту (як на фото) */
+    &--selected {
+      background: #3b82f6 !important; // Яскраво-синій
+      color: #ffffff !important;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+  }
+}
+
+/* Оновлення кнопки форми */
+.service-detail-card__bottom button {
+  background: #3b82f6;
+  transition: background 0.2s;
+
+  &:hover:not(:disabled) {
+    background: #2563eb;
+  }
+
+  &:disabled {
+    background: #cbd5e1;
+    cursor: not-allowed;
+  }
+}
