@@ -2,90 +2,31 @@ import "./DoctorService.scss";
 
 import type {Route} from "./+types/DoctorService";
 
-import {
-    getAvailableSlots,
-    getDoctors,
-    getServices,
-    getSpecialties,
-} from "~/api";
-import type {Doctor, Service} from "~/types";
-import {Link} from "react-router";
-import ServiceCard from "~/components/ServicesCard/ServicesCard";
-import ServiceCalendar from "~/components/ServiceCalendar/ServiceCalendar";
-import {useState} from "react";
+import { getAvailableSlots, getDoctor, getSpecialties } from "~/api";
 
-export async function clientLoader({params}: Route.LoaderArgs) {
-    const doctorId = Number(params.doctorId);
-    const serviceId = Number(params.serviceId);
+export async function clientLoader({ params }: Route.LoaderArgs) {
+  const doctorId = Number(params.doctorId);
+  const serviceId = Number(params.serviceId);
 
-    if (Number.isNaN(serviceId)) {
-    }
+  const date = new Date();
+  date.setDate(date.getDate() + 1);
 
-    const date = new Date();
-
-    return Promise.all([
-        getDoctors(),
-        getServices(),
-        getSpecialties(),
-        getAvailableSlots({
-            doctorId,
-            serviceId,
-            date,
-        }),
-    ]);
+  return Promise.all([
+    getDoctor(doctorId),
+    getSpecialties(),
+    getAvailableSlots({
+      doctorId,
+      serviceId,
+      date,
+    }),
+  ]);
 }
 
 export default function DoctorService({
-                                          params,
-                                          loaderData,
-                                      }: Route.ComponentProps) {
-    const [doctors, services, specialties, slots] = loaderData;
-
-    const doctor: Doctor | undefined = doctors.find((d) => d.doctorId === Number(params.doctorId));
-    const service: Service | undefined = services.find((s) => s.serviceId === Number(params.serviceId));
-
-    console.log(slots);
-
-
-    if (!doctor) {
-        return (
-            <div className="doctor-detail-card">
-                <h2>Лікаря не знайдено</h2>
-            </div>
-        );
-    }
-
-    const specialty = specialties.find((sp) => sp.id === doctor.specialty);
-    const workStart = doctor.workStart ? doctor.workStart.slice(0, 5) : "—";
-    const workEnd = doctor.workEnd ? doctor.workEnd.slice(0, 5) : "—";
-
-    function formatSlot(startAt: string, endAt: string) {
-
-        const start = new Date(startAt);
-
-        const end = new Date(endAt);
-
-        const pad = (n: number) => n.toString().padStart(2, '0');
-
-        const startTime = `${pad(start.getUTCHours())}:${pad(start.getUTCMinutes())}`;
-
-        const endTime = `${pad(end.getUTCHours())}:${pad(end.getUTCMinutes())}`;
-
-        return `${startTime} - ${endTime}`;
-
-    }
-
-
-    const [chosenSlot, setChosenSlot] = useState(null);
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (!chosenSlot) return alert('Будь ласка, оберіть час!');
-
-        // Твоя логіка відправки даних на бекенд
-        console.log("Запис на слот:", chosenSlot);
-    };
-
+  params,
+  loaderData,
+}: Route.ComponentProps) {
+  const [doctor, specialties, slots] = loaderData;
 
     return (
         <div className="service-detail-card">

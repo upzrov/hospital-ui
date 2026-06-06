@@ -10,6 +10,18 @@ export async function getServices(): Promise<Service[]> {
   return response.json();
 }
 
+export async function getService(id: number): Promise<Service> {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/Service/${id}`,
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch service");
+  }
+
+  return response.json();
+}
+
 export async function createService(form: {
   name: string;
   description: string;
