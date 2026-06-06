@@ -1,6 +1,8 @@
 import './ServicesCard.scss'
 
 import React, {type Component} from "react";
+import {useNavigate, useOutletContext} from "react-router";
+import type {Doctor, Role, Service} from "~/types";
 
 type Props = {
     service: Service;
@@ -8,6 +10,8 @@ type Props = {
 }
 
 export const ServiceCard: React.FC<Props> = ({service, doctors}) => {
+    const navigate = useNavigate();
+    const {user} = useOutletContext<{ user: Role | null }>();
 
     const NumberOfSpecialists = [...doctors].filter((doc) => doc.specialty === service.specialty)
 
@@ -39,7 +43,11 @@ export const ServiceCard: React.FC<Props> = ({service, doctors}) => {
                             <span className="price-amount">{service.price}$</span>
                             <span className="price-label">вартість послуги</span>
                         </div>
-                        <button className="service-action-btn">Записатися</button>
+                        <button
+                            className="service-action-btn"
+                            onClick={() => navigate(`/services/${service.serviceId}`)}>
+                            Записатися
+                        </button>
                     </div>
                 </div>
             </div>

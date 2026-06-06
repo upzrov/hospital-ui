@@ -79,8 +79,12 @@
   }
 
   &__services {
+    width: 280px;
+    min-width: 280px;
+
     display: flex;
     flex-wrap: wrap;
+    align-content: flex-start;
     gap: 10px;
 
     .service {

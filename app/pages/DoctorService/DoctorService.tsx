@@ -1,6 +1,6 @@
 import "./DoctorService.scss";
 
-import type { Route } from "./+types/DoctorService";
+import type {Route} from "./+types/DoctorService";
 
 import { getAvailableSlots, getDoctor, getSpecialties } from "~/api";
 
@@ -28,55 +28,110 @@ export default function DoctorService({
 }: Route.ComponentProps) {
   const [doctor, specialties, slots] = loaderData;
 
-  if (!doctor) {
     return (
-      <div className="doctor-detail-card">
-        <h2>Лікаря не знайдено</h2>
-      </div>
+        <div className="service-detail-card">
+
+            <div className="service-detail-card__grid">
+
+                {/* LEFT COLUMN */}
+
+                <div className="service-detail-card__left">
+
+                    <div className="service-detail-card__top">
+
+                        <div className="service-detail-card__main">
+
+                            <h1 className="service-detail-card__name">
+
+                                {service?.name}
+
+                            </h1>
+
+                            <div className="service-detail-card__description">
+
+                                {service?.description}
+
+                            </div>
+
+                            <div className="service-detail-card__price">
+
+                                Ціна: {service?.price} $
+
+                            </div>
+
+                            <div className="service-detail-card__duration">
+
+                                Тривалість: {service?.durationMinutes} хв
+
+                            </div>
+
+                            <div className="service-detail-card__specialty">
+
+                                Спеціальність: {specialty?.name ?? "—"}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div className="service-detail-card__doctor">
+
+                        <h3>Лікар</h3>
+
+                        <div className="service-detail-card__doctor-name">
+
+                            {doctor.fullName}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {/* RIGHT COLUMN */}
+
+
+                {/*<form className="service-detail-card__bottom" onSubmit={handleSubmit}>*/}
+                {/*    <h3>Доступні слоти</h3>*/}
+
+                {/*    /!* Вставляємо наш новий віджет календаря *!/*/}
+                {/*    <ServiceCalendar*/}
+                {/*        slots={slots}*/}
+                {/*        formatSlot={formatSlot}*/}
+                {/*        onSelectSlot={(slot) => setChosenSlot(slot)}*/}
+                {/*    />*/}
+
+                {/*    /!* Кнопка стає активною тільки після вибору часу *!/*/}
+                {/*    <button type="submit" disabled={!chosenSlot}>*/}
+                {/*        Записатися*/}
+                {/*    </button>*/}
+                {/*</form>*/}
+
+                <form className="service-detail-card__bottom">
+                    <h3>Доступні слоти</h3>
+
+
+
+                    <div className="slots-grid">
+                        {slots.map((slot, index) => (
+                            <label key={index} className="slot-item">
+                                <input
+                                    type="radio"
+                                    name="slot"
+                                    value={slot.startAt}
+                                    className="service"
+                                />
+                                {formatSlot(slot.startAt, slot.endAt)}
+                            </label>
+                        ))}
+                    </div>
+
+                    <button type="submit">Записатися</button>
+                </form>
+
+            </div>
+
+        </div>
     );
-  }
-
-  const specialty = specialties.find((sp) => sp.id === doctor.specialty);
-  const workStart = doctor.workStart ? doctor.workStart.slice(0, 5) : "—";
-  const workEnd = doctor.workEnd ? doctor.workEnd.slice(0, 5) : "—";
-
-  return (
-    <div className="doctor-detail-card">
-      <div className="doctor-detail-card__top">
-        <div className="doctor-detail-card__image">
-          <img src={doctor.photoUrl} alt={doctor.fullName} />
-        </div>
-
-        <div className="doctor-detail-card__main">
-          <h1 className="doctor-detail-card__name">{doctor.fullName}</h1>
-
-          <div className="doctor-detail-card__specialty">
-            Спеціальність: {specialty?.name ?? "—"}
-          </div>
-
-          <div className="doctor-detail-card__email">Email: {doctor.email}</div>
-
-          <div className="doctor-detail-card__schedule">
-            Робочий час: <span>{workStart}</span> – <span>{workEnd}</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="doctor-detail-card__bottom">
-        <div className="doctor-detail-card__services">
-          {doctor.services?.length ? (
-            doctor.services.map((s, index) => (
-              <div className="service" key={index}>
-                {s.name}
-              </div>
-            ))
-          ) : (
-            <div>Послуги не вказані</div>
-          )}
-        </div>
-
-        {/* TODO: Render slots somewhere here */}
-      </div>
-    </div>
-  );
 }
