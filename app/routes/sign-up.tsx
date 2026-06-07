@@ -64,7 +64,7 @@ export const Signup = () => {
               <label>Прізвище</label>
               <input
                 type="text"
-                name="fullName"
+                name="lastName"
                 placeholder="Іванов"
                 value={form.lastName}
                 onChange={handleChange}
