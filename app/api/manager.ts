@@ -24,3 +24,36 @@ export async function getManagers(): Promise<Manager[]> {
 
   return handleResponse(response);
 }
+
+export async function deleteManager(id: number) {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/Manager/${id}`,
+    {
+      method: 'DELETE',
+      credentials: 'include',
+    },
+  );
+
+  return handleResponse(response);
+}
+
+export async function updateManager(
+  id: number,
+  form: {
+    fullName: string;
+    phoneNumber: string | null;
+    email: string;
+  },
+) {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/Manager/${id}`,
+    {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(form),
+    },
+  );
+
+  return handleResponse(response);
+}

@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { useRevalidator } from 'react-router';
+import { useRevalidator, redirect } from 'react-router';
 import { deletePatient, getPatients, getRole, updatePatient } from '~/api';
 import '~/styles/routes/patients.scss';
 import type { Patient } from '~/types/patient';
@@ -8,9 +8,13 @@ import { Modal } from '~/components/Modal';
 import { useModal } from '~/hooks/useModal';
 
 export async function clientLoader() {
-  const user = await getRole();
-  if (user !== 'Administrator' && user !== 'Manager') {
-    throw new Response('Forbidden', { status: 403 });
+  try {
+    const user = await getRole();
+    if (user !== 'Administrator' && user !== 'Manager') {
+      return redirect('/signin');
+    }
+  } catch (err) {
+    return redirect('/signin');
   }
 
   const patients = await getPatients();

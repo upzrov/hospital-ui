@@ -32,9 +32,8 @@ export const Footer = () => {
 
           <div className="footer-col">
             <h4>Графік роботи</h4>
-            <p>Пн – Пт: 08:00 — 20:00</p>
-            <p>Сб: 09:00 — 18:00</p>
-            <p>Нд: Вихідний</p>
+            <p>Пн – Пт: 09:00 — 18:00</p>
+            <p>Сб – Нд: Вихідний</p>
           </div>
 
           <div className="footer-col">
