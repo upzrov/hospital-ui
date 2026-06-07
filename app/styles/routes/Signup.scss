@@ -1,0 +1,135 @@
+@import "../variables";
+
+// Using common auth styles from Signin.scss logic but tailored for Signup
+.auth-page {
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 20px;
+  background: $color-bg-page;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 650px; // Slightly wider for signup grid
+  background: $color-white;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $spacing-xl;
+  box-shadow: $shadow-lg;
+}
+
+.auth-title {
+  font-size: 28px;
+  font-weight: 900;
+  color: $color-primary;
+  text-align: center;
+  margin: 0 0 $spacing-xl 0;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.auth-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-lg;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+
+  label {
+    font-size: 14px;
+    font-weight: 700;
+    color: $color-text-muted;
+  }
+
+  input {
+    padding: 12px;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    font-size: 15px;
+    background: $color-bg-page;
+    transition: 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+      background: $color-white;
+      box-shadow: 0 0 0 4px $color-primary-lighter;
+    }
+
+    &::placeholder {
+      color: $color-text-light;
+    }
+  }
+}
+
+.auth-submit-btn {
+  background: $color-primary;
+  color: $color-white;
+  border: none;
+  padding: 14px;
+  border-radius: $radius-md;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: $spacing-sm;
+
+  &:hover {
+    background: $color-primary-dark;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    background: $color-text-light;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  &.loading {
+    opacity: 0.8;
+    pointer-events: none;
+  }
+}
+
+.auth-footer {
+  margin-top: $spacing-sm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-xs;
+  font-size: 14px;
+
+  .auth-footer-text {
+    color: $color-text-muted;
+  }
+
+  .auth-link {
+    color: $color-primary;
+    font-weight: 700;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-//@use '/src/styles/color' as *;
+@import "variables";
 
 h1 {
   font-weight: 800;
@@ -55,5 +55,3 @@ h4 {
   font-size: 12px;
   line-height: 15px;
 }
-
-

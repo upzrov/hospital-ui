@@ -1,0 +1,128 @@
+@import "../variables";
+
+.service-doctor-card {
+  box-sizing: border-box;
+  background: $color-white;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  padding: $spacing-xl;
+  width: 1000px;
+  max-width: calc(100% - 40px);
+  margin: $spacing-xl auto;
+  box-shadow: $shadow-md;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: $radius-md;
+  }
+
+  &__doctor {
+    display: flex;
+    flex-direction: column;
+    gap: $radius-md;
+    padding-top: $spacing-lg;
+    border-top: 1px solid $color-border-light;
+    padding-bottom: $spacing-lg;
+    border-bottom: 1px solid $color-border-light;
+  }
+
+  &__name {
+    font-size: 28px;
+    font-weight: 800;
+    color: $color-primary;
+    margin: 0;
+  }
+
+  &__description {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  &__meta {
+    display: flex;
+    gap: $spacing-lg;
+    align-items: center;
+  }
+
+  &__price {
+    font-size: 18px;
+    font-weight: 700;
+    color: $color-danger;
+  }
+
+  &__duration {
+    font-size: 15px;
+    color: $color-primary-light;
+    font-weight: 500;
+    background: #f0f2ff;
+    padding: $spacing-xs $radius-md;
+    border-radius: 20px;
+  }
+
+  &__booking {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+
+    h3 {
+      margin: 0;
+      font-size: 18px;
+      color: $color-primary;
+    }
+  }
+
+  &__notice {
+    font-size: 14px;
+    color: $color-danger;
+    background: $color-danger-light;
+    padding: $radius-md $spacing-md;
+    border-radius: $radius-sm;
+    margin: 0;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: $spacing-md;
+
+    button {
+      background: $color-danger;
+      color: $color-white;
+      border: none;
+      padding: 14px $spacing-xl;
+      border-radius: $radius-md;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover:not(:disabled) {
+        background: $color-danger-dark;
+      }
+
+      &:disabled {
+        background: #cfd8dc;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  @media (max-width: 650px) {
+    padding: $spacing-lg;
+    
+    &__meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $radius-md;
+    }
+
+    &__actions button {
+      width: 100%;
+    }
+  }
+}

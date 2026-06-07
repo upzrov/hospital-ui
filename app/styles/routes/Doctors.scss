@@ -1,0 +1,83 @@
+@import "../variables";
+
+.doctors-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-xxl 20px;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xxl; // Matching Services page gap
+
+  &__title {
+    font-size: 32px;
+    font-weight: 900;
+    color: $color-primary;
+    margin: 0;
+    text-align: center;
+  }
+
+  &__form {
+    align-self: center;
+    width: 100%;
+    max-width: 850px;
+    background: $color-white;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    padding: $spacing-lg;
+    box-shadow: $shadow-md;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 800;
+      color: $color-primary;
+    }
+
+    button {
+      align-self: flex-start;
+      background: $color-danger;
+      color: white;
+      border: none;
+      padding: 12px $spacing-lg;
+      border-radius: $radius-md;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover {
+        background: $color-danger-dark;
+      }
+    }
+  }
+
+  &__fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: $spacing-md;
+
+    input,
+    select {
+      padding: 12px;
+      border: 1px solid $color-border;
+      border-radius: $radius-sm;
+      font-size: 14px;
+      background: $color-bg-page;
+
+      &:focus {
+        outline: none;
+        border-color: $color-primary;
+        background: $color-white;
+      }
+    }
+  }
+}
+
+.doctorsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: $spacing-xl;
+  width: 100%;
+}

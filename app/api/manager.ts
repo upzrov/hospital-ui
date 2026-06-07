@@ -1,4 +1,5 @@
 import type { Manager } from "~/types/manager";
+import { handleResponse } from "./utils";
 
 export async function createManager(form: {
   fullName: string;
@@ -13,9 +14,7 @@ export async function createManager(form: {
     body: JSON.stringify(form),
   });
 
-  if (!response.ok) {
-    throw new Error("Failed to create manager");
-  }
+  return handleResponse(response);
 }
 
 export async function getManagers(): Promise<Manager[]> {
@@ -23,9 +22,6 @@ export async function getManagers(): Promise<Manager[]> {
     credentials: "include",
   });
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch managers");
-  }
-
-  return (await response.json()) as Manager[];
+  return handleResponse(response);
 }
+

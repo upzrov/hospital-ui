@@ -6,27 +6,27 @@ import {
 } from "@react-router/dev/routes";
 
 export default [
-  layout("pages/layout.tsx", [
-    index("pages/HomePage/HomePage.tsx"),
+  layout("routes/layout.tsx", [
+    index("routes/Home.tsx"),
 
-    route("signin", "pages/Signin/Signin.tsx"),
-    route("signup", "pages/Signup/Signup.tsx"),
+    route("signin", "routes/Signin.tsx"),
+    route("signup", "routes/Signup.tsx"),
 
-    route("doctors", "pages/DoctorsPage/DoctorsPage.tsx"),
-    route("doctors/:id", "pages/Doctor/Doctor.tsx"),
+    route("doctors", "routes/Doctors.tsx"),
+    route("doctors/:id", "routes/Doctor.tsx"),
     route(
       "doctors/:doctorId/:serviceId",
-      "pages/DoctorService/DoctorService.tsx",
+      "routes/DoctorService.tsx",
     ),
-    route("services", "pages/ServicesPage/ServicesPage.tsx"),
+    route("services", "routes/Services.tsx"),
     route(
       "services/:serviceId/:doctorId",
-      "pages/ServiceDoctor/ServiceDoctor.tsx",
+      "routes/ServiceDoctor.tsx",
     ),
-    route("services/:id", "pages/Service/Service.tsx"),
-    route("about", "pages/AboutPage/AboutPage.tsx"),
+    route("services/:id", "routes/Service.tsx"),
+    route("about", "routes/About.tsx"),
 
-    route("profile", "pages/Profile/Profile.tsx"),
-    route("contact", "pages/ContactPage/ContactPage.tsx"),
+    route("profile", "routes/Profile.tsx"),
+    route("contact", "routes/Contact.tsx"),
   ]),
 ] satisfies RouteConfig;

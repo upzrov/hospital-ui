@@ -1,0 +1,164 @@
+@import "../variables";
+
+.profile-page {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+
+  h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: $color-primary;
+    margin: 0;
+  }
+
+  button {
+    background: $color-danger;
+    color: $color-white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: $radius-sm;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      background: $color-danger-dark;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: $spacing-md;
+  }
+}
+
+.profile-info {
+  h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: $color-primary;
+    margin: 0 0 $spacing-md 0;
+  }
+
+  &__card {
+    background: $color-white;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: $shadow-md;
+  }
+
+  &__fallback {
+    color: $color-text-muted;
+  }
+}
+
+.profile-panel {
+  h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: $color-primary;
+    margin: 0 0 20px 0;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: $color-primary;
+    margin: 0 0 12px 0;
+  }
+
+  &__form {
+    background: $color-white;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    box-shadow: $shadow-md;
+
+    button {
+      align-self: flex-start;
+    }
+  }
+
+  &__fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+
+    input,
+    select {
+      padding: 10px 12px;
+      border: 1px solid $color-border;
+      border-radius: $radius-sm;
+      font-size: 14px;
+    }
+  }
+
+  &__list {
+    background: $color-white;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    padding: 20px;
+    box-shadow: $shadow-md;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid $color-border-light;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    strong {
+      color: $color-primary;
+    }
+
+    div {
+      font-size: 14px;
+      color: $color-text-muted;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+
+    button {
+      background: $color-primary-lighter;
+      color: $color-primary;
+      padding: 8px 14px;
+      font-size: 13px;
+
+      &:hover {
+        background: $color-primary-light;
+      }
+
+      &.danger {
+        background: $color-danger-light;
+        color: $color-danger;
+
+        &:hover {
+          background: #ffcdd2;
+        }
+      }
+    }
+  }
+}

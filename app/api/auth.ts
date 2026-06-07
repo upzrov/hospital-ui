@@ -1,4 +1,5 @@
 import type { Role } from "~/types/auth";
+import { handleResponse } from "./utils";
 
 export async function signIn(form: { email: string; password: string }) {
   const response = await fetch(
@@ -13,9 +14,7 @@ export async function signIn(form: { email: string; password: string }) {
     },
   );
 
-  if (!response.ok) {
-    throw new Error("Неправильний email або пароль");
-  }
+  return handleResponse(response);
 }
 
 export async function signUp(form: {
@@ -38,9 +37,7 @@ export async function signUp(form: {
     },
   );
 
-  if (!response.ok) {
-    throw new Error("Неправильний email або пароль");
-  }
+  return handleResponse(response);
 }
 
 export async function signOut() {
@@ -49,9 +46,7 @@ export async function signOut() {
     { method: "POST", credentials: "include" },
   );
 
-  if (!response.ok) {
-    throw new Error("Failed to sign out");
-  }
+  return handleResponse(response);
 }
 
 export async function getRole(): Promise<Role> {
@@ -60,9 +55,5 @@ export async function getRole(): Promise<Role> {
     { credentials: "include" },
   );
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch user role, user may be unathorized");
-  }
-
-  return (await response.text()) as Role;
+  return handleResponse(response);
 }

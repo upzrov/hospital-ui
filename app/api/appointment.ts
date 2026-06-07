@@ -1,4 +1,5 @@
 import type { Appointment, AvailableSlot } from "~/types/appointment";
+import { handleResponse } from "./utils";
 
 export async function createAppointment(form: {
   startAt: string;
@@ -15,9 +16,7 @@ export async function createAppointment(form: {
     },
   );
 
-  if (!response.ok) {
-    throw new Error("Failed to create appointment");
-  }
+  return handleResponse(response);
 }
 
 export async function getAllAppointments(): Promise<Appointment[]> {
@@ -26,11 +25,7 @@ export async function getAllAppointments(): Promise<Appointment[]> {
     { credentials: "include" },
   );
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch appointments");
-  }
-
-  return (await response.json()) as Appointment[];
+  return handleResponse(response);
 }
 
 export async function deleteAppointment(id: number) {
@@ -42,9 +37,7 @@ export async function deleteAppointment(id: number) {
     },
   );
 
-  if (!response.ok) {
-    throw new Error(`Failed to delete appointment with ID ${id}`);
-  }
+  return handleResponse(response);
 }
 
 export async function getPatientAppointments(): Promise<Appointment[]> {
@@ -55,11 +48,7 @@ export async function getPatientAppointments(): Promise<Appointment[]> {
     },
   );
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch patient appointments");
-  }
-
-  return (await response.json()) as Appointment[];
+  return handleResponse(response);
 }
 
 export async function getDoctorAppointments(): Promise<Appointment[]> {
@@ -68,11 +57,7 @@ export async function getDoctorAppointments(): Promise<Appointment[]> {
     { credentials: "include" },
   );
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch doctor appointments");
-  }
-
-  return (await response.json()) as Appointment[];
+  return handleResponse(response);
 }
 
 export async function getAvailableSlots(params: {
@@ -92,9 +77,5 @@ export async function getAvailableSlots(params: {
     { credentials: "include" },
   );
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch available slots");
-  }
-
-  return (await response.json()) as AvailableSlot[];
+  return handleResponse(response);
 }

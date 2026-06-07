@@ -1,4 +1,5 @@
 import type { Patient } from "~/types/patient";
+import { handleResponse } from "./utils";
 
 export async function getPatientProfile(): Promise<Patient> {
   const response = await fetch(
@@ -6,11 +7,7 @@ export async function getPatientProfile(): Promise<Patient> {
     { credentials: "include" },
   );
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch patient profile");
-  }
-
-  return (await response.json()) as Patient;
+  return handleResponse(response);
 }
 
 export async function getPatients(): Promise<Patient[]> {
@@ -18,11 +15,7 @@ export async function getPatients(): Promise<Patient[]> {
     credentials: "include",
   });
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch patients");
-  }
-
-  return (await response.json()) as Patient[];
+  return handleResponse(response);
 }
 
 export async function deletePatient(id: number) {
@@ -34,9 +27,7 @@ export async function deletePatient(id: number) {
     },
   );
 
-  if (!response.ok) {
-    throw new Error(`Failed to delete patient with ID ${id}`);
-  }
+  return handleResponse(response);
 }
 
 export async function updatePatient(
@@ -57,7 +48,5 @@ export async function updatePatient(
     },
   );
 
-  if (!response.ok) {
-    throw new Error(`Failed to update patient with ID ${id}`);
-  }
+  return handleResponse(response);
 }

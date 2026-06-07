@@ -1,0 +1,205 @@
+@import "../variables";
+
+.doctor-page {
+  max-width: 1100px;
+  margin: $spacing-xxl auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xxl;
+}
+
+.doctor-page-card {
+  background: $color-white;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $spacing-xl;
+  box-shadow: $shadow-lg;
+
+  &__top {
+    display: flex;
+    gap: $spacing-xl;
+    align-items: flex-start;
+  }
+
+  &__image {
+    img {
+      width: 200px;
+      height: 200px;
+      border-radius: $radius-md;
+      object-fit: cover;
+      border: 2px solid $color-border-light;
+    }
+  }
+
+  &__main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__name {
+    font-size: 28px;
+    font-weight: 800;
+    color: $color-primary;
+    margin: 0;
+  }
+
+  &__specialty {
+    font-size: 18px;
+    color: $color-primary-light;
+    font-weight: 600;
+  }
+
+  &__email {
+    font-size: 16px;
+    color: $color-text-dark;
+  }
+
+  &__schedule {
+    margin-top: $spacing-sm;
+    font-size: 16px;
+    color: $color-text-muted;
+
+    span {
+      font-weight: 600;
+      color: $color-primary;
+    }
+  }
+}
+
+.doctor-page__services {
+  h2 {
+    font-size: 24px;
+    font-weight: 800;
+    color: $color-primary;
+    margin: 0 0 $spacing-lg 0;
+  }
+
+  .no-services {
+    color: $color-text-light;
+    font-style: italic;
+  }
+}
+
+.doctor-page__services-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.service-item-wrapper {
+  display: flex;
+  align-items: stretch;
+  background: $color-white;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  overflow: hidden;
+  transition: 0.2s;
+
+  &:hover {
+    box-shadow: $shadow-md;
+    border-color: $color-primary-light;
+  }
+
+  .service-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: $spacing-md;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    text-align: left;
+
+    &:disabled {
+      cursor: default;
+    }
+
+    .service-name {
+      font-weight: 600;
+      color: $color-primary;
+      font-size: 15px;
+    }
+
+    .service-price {
+      font-weight: 800;
+      color: $color-danger;
+      font-size: 16px;
+    }
+
+    &:hover:not(:disabled) {
+      background: $color-primary-lighter;
+    }
+  }
+
+  .remove-btn {
+    background: $color-white;
+    border: none;
+    border-left: 1px solid $color-border;
+    color: $color-danger;
+    padding: 0 16px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: 0.2s;
+
+    &:hover {
+      background: $color-danger-light;
+    }
+  }
+}
+
+.doctor-page__management {
+  margin-top: $spacing-xl;
+  padding-top: $spacing-xl;
+  border-top: 1px solid $color-border-light;
+  max-width: 600px;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: $color-primary;
+    margin: 0 0 $spacing-md 0;
+  }
+
+  .management-controls {
+    display: flex;
+    gap: 12px;
+
+    select {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid $color-border;
+      border-radius: $radius-md;
+      font-size: 14px;
+      background: $color-bg-page;
+
+      &:focus {
+        outline: none;
+        border-color: $color-primary;
+      }
+    }
+
+    .assign-btn {
+      background: $color-primary;
+      color: $color-white;
+      border: none;
+      padding: 12px $spacing-lg;
+      border-radius: $radius-md;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:disabled {
+        background: $color-border;
+        cursor: not-allowed;
+      }
+
+      &:hover:not(:disabled) {
+        background: $color-primary-dark;
+      }
+    }
+  }
+}

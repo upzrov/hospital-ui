@@ -1,25 +1,20 @@
-import type { Gender, Specialties } from "~/types";
+import type { Specialties, Gender } from "~/types/lookup";
+import { handleResponse } from "./utils";
 
 export async function getSpecialties(): Promise<Specialties[]> {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Lookup/specialties`,
+    { credentials: "include" },
   );
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch doctors");
-  }
-
-  return response.json();
+  return handleResponse(response);
 }
 
 export async function getGenders(): Promise<Gender[]> {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Lookup/genders`,
+    { credentials: "include" },
   );
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch genders");
-  }
-
-  return (await response.json()) as Gender[];
+  return handleResponse(response);
 }

@@ -14,8 +14,8 @@ import { useEffect } from "react";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "MedicalCenter" },
-    { name: "description", content: "Welcome to MedicalCenter!" },
+    { title: "Любашівська лікарня" },
+    { name: "description", content: "Welcome to Любашівська лікарня!" },
   ];
 }
 

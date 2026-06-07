@@ -1,0 +1,130 @@
+@import "../variables";
+
+.home-page {
+  padding-bottom: 80px;
+}
+
+/* Основні стилі секції */
+.hero {
+  position: relative;
+  height: 110vh;
+  min-height: 500px;
+
+  background-image:
+          linear-gradient(to bottom, rgba(255, 255, 255, 0) 70%, $color-white 100%),
+          url('/photo/hospital-2.jpeg');
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  color: $color-white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+
+/* Напівпрозорий шар поверх фото для читабельності тексту */
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hero-content {
+  max-width: 600px;
+}
+
+.hero-content--text {
+  color: $color-white;
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+/* Кнопки */
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  padding: 12px 25px;
+  border-radius: $radius-sm;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-primary {
+  background-color: $color-primary;
+  color: $color-white;
+}
+
+.btn-primary:hover {
+  background-color: $color-primary-dark;
+}
+
+.btn-outline {
+  border: 2px solid $color-white;
+  color: $color-white;
+}
+
+.btn-outline:hover {
+  background-color: $color-white;
+  color: $color-text-dark;
+}
+
+/* Блок лікарів поверх hero */
+.featured-doctors {
+  position: relative;
+  z-index: 10;
+  margin-top: -100px;
+  padding-bottom: $spacing-xxl;
+
+  &__title {
+    font-size: 28px;
+    font-weight: 900;
+    color: $color-white;
+    margin-bottom: $spacing-lg;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: $spacing-lg;
+  }
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .featured-doctors {
+    margin-top: -60px;
+  }
+}

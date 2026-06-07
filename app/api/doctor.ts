@@ -1,5 +1,6 @@
 import type { Service } from "~/types";
 import type { Doctor } from "~/types/doctor";
+import { handleResponse } from "./utils";
 
 export async function getDoctorProfile(): Promise<Doctor> {
   const response = await fetch(
@@ -7,22 +8,15 @@ export async function getDoctorProfile(): Promise<Doctor> {
     { credentials: "include" },
   );
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch doctor profile");
-  }
-
-  return (await response.json()) as Doctor;
+  return handleResponse(response);
 }
 
 export async function getDoctors(): Promise<Doctor[]> {
-  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/Doctor`);
+  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/Doctor`, {
+    credentials: "include",
+  });
 
-  if (!response.ok) {
-    console.error(await response.json());
-    throw new Error("Failed to fetch doctors");
-  }
-
-  return response.json();
+  return handleResponse(response);
 }
 
 export async function getDoctor(
@@ -32,12 +26,7 @@ export async function getDoctor(
     `${import.meta.env.VITE_API_BASE_URL}/Doctor/${id}`,
   );
 
-  if (!response.ok) {
-    console.error(await response.json());
-    throw new Error("Failed to fetch doctor");
-  }
-
-  return response.json();
+  return handleResponse(response);
 }
 
 export async function createDoctor(form: {
@@ -58,9 +47,7 @@ export async function createDoctor(form: {
     body: JSON.stringify(form),
   });
 
-  if (!response.ok) {
-    throw new Error("Failed to create doctor");
-  }
+  return handleResponse(response);
 }
 
 export async function assignServiceToDoctor(
@@ -75,11 +62,22 @@ export async function assignServiceToDoctor(
     },
   );
 
-  if (!response.ok) {
-    throw new Error(
-      `Failed to assign service ${serviceId} to doctor ${doctorId}`,
-    );
-  }
+  return handleResponse(response);
+}
+
+export async function deleteAssignedDoctorService(
+  doctorId: number,
+  serviceId: number,
+) {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/Doctor/${doctorId}/services/${serviceId}`,
+    {
+      method: "DELETE",
+      credentials: "include",
+    },
+  );
+
+  return handleResponse(response);
 }
 
 export async function deleteDoctor(id: number) {
@@ -88,9 +86,7 @@ export async function deleteDoctor(id: number) {
     { method: "DELETE", credentials: "include" },
   );
 
-  if (!response.ok) {
-    throw new Error(`Failed to delete doctor with ID ${id}`);
-  }
+  return handleResponse(response);
 }
 
 export async function updateDoctor(
@@ -111,7 +107,5 @@ export async function updateDoctor(
     },
   );
 
-  if (!response.ok) {
-    throw new Error(`Failed to update doctor with ID ${id}`);
-  }
+  return handleResponse(response);
 }

@@ -1,0 +1,46 @@
+@import "../variables";
+
+.doctor-info-block {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+
+  h3 {
+    margin: 0;
+    font-size: 14px;
+    color: #757575;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+
+    img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid $color-border;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__name {
+    font-size: 20px;
+    font-weight: 700;
+    color: $color-primary;
+  }
+
+  &__specialty {
+    font-size: 14px;
+    font-weight: 500;
+    color: $color-primary-light;
+  }
+}

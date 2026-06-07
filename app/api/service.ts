@@ -1,25 +1,21 @@
 import type { Service } from "~/types";
+import { handleResponse } from "./utils";
 
 export async function getServices(): Promise<Service[]> {
-  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/Service`);
+  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/Service`, {
+    credentials: "include",
+  });
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch services");
-  }
-
-  return response.json();
+  return handleResponse(response);
 }
 
 export async function getService(id: number): Promise<Service> {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Service/${id}`,
+    { credentials: "include" },
   );
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch service");
-  }
-
-  return response.json();
+  return handleResponse(response);
 }
 
 export async function createService(form: {
@@ -36,9 +32,7 @@ export async function createService(form: {
     body: JSON.stringify(form),
   });
 
-  if (!response.ok) {
-    throw new Error("Failed to create service");
-  }
+  return handleResponse(response);
 }
 
 export async function deleteService(id: number) {
@@ -47,7 +41,5 @@ export async function deleteService(id: number) {
     { method: "DELETE", credentials: "include" },
   );
 
-  if (!response.ok) {
-    throw new Error(`Failed to delete service with ID ${id}`);
-  }
+  return handleResponse(response);
 }

@@ -1,0 +1,74 @@
+@import "../variables";
+
+.service-page {
+  max-width: 1100px;
+  margin: $spacing-xl auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+}
+
+.service-page-card {
+  background: $color-white;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $spacing-xl;
+  box-shadow: $shadow-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $radius-md;
+
+  &__name {
+    font-size: 28px;
+    font-weight: 800;
+    color: $color-primary;
+    margin: 0;
+  }
+
+  &__description {
+    font-size: 16px;
+    color: $color-text-dark;
+    line-height: 1.5;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__price {
+    font-size: 20px;
+    font-weight: 800;
+    color: $color-danger;
+  }
+
+  &__duration,
+  &__specialty {
+    font-size: 16px;
+    color: $color-primary-light;
+    font-weight: 600;
+  }
+}
+
+.service-page__doctors {
+  h2 {
+    font-size: 24px;
+    font-weight: 800;
+    color: $color-primary;
+    margin: 0 0 $spacing-lg 0;
+  }
+
+  .no-doctors {
+    color: $color-text-light;
+    font-style: italic;
+  }
+}
+
+.service-page__doctors-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: $spacing-lg;
+}
+
+@media (max-width: 768px) {
+  .service-page__doctors-list {
+    grid-template-columns: 1fr;
+  }
+}

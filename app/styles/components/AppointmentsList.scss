@@ -1,0 +1,238 @@
+@import "../variables";
+
+.appointments-section {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 2px solid $color-primary-lighter;
+    padding-bottom: $spacing-sm;
+
+    h2 {
+      font-size: 24px;
+      font-weight: 900;
+      color: $color-primary;
+      margin: 0;
+    }
+
+    .appointments-count {
+      font-size: 14px;
+      color: $color-text-muted;
+      font-weight: 600;
+    }
+  }
+
+  &__empty {
+    padding: $spacing-xxl;
+    text-align: center;
+    background: $color-white;
+    border: 2px dashed $color-border;
+    border-radius: $radius-lg;
+    color: $color-text-light;
+
+    .empty-icon {
+      font-size: 48px;
+      margin-bottom: $spacing-md;
+    }
+
+    p {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+}
+
+.appointments-groups {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+}
+
+.date-group {
+  &__title {
+    font-size: 14px;
+    font-weight: 800;
+    color: $color-primary-light;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 $spacing-md 0;
+    padding-left: $spacing-sm;
+    border-left: 4px solid $color-primary-light;
+  }
+}
+
+.appointments-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.appointment-card {
+  display: flex;
+  align-items: stretch;
+  background: $color-white;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: $shadow-sm;
+
+  &:hover:not(.is-past) {
+    transform: translateX(4px);
+    box-shadow: $shadow-md;
+    border-color: $color-primary-light;
+  }
+
+  &.is-past {
+    opacity: 0.7;
+    background: $color-bg-page;
+
+    .appointment-card__time-block {
+      background: #cfd8dc;
+      color: #546e7a;
+    }
+  }
+
+  &__time-block {
+    width: 100px;
+    min-width: 100px;
+    background: $color-primary;
+    color: $color-white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-md;
+    text-align: center;
+
+    .start-time {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .duration-line {
+      width: 2px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.3);
+      margin: 4px 0;
+    }
+
+    .end-time {
+      font-size: 14px;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    padding: $spacing-md $spacing-lg;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: $spacing-sm;
+  }
+
+  &__service {
+    font-size: 18px;
+    font-weight: 800;
+    color: $color-primary;
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+
+    .past-badge {
+      font-size: 11px;
+      background: #eceff1;
+      color: #607d8b;
+      padding: 2px 8px;
+      border-radius: $radius-full;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      font-size: 14px;
+      color: $color-text-dark;
+
+      .icon {
+        font-size: 16px;
+        width: 20px;
+        text-align: center;
+      }
+
+      .text {
+        font-weight: 500;
+      }
+
+      .sub-text {
+        color: $color-text-muted;
+        font-weight: 400;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    padding: 0 $spacing-lg;
+    border-left: 1px solid $color-border-light;
+
+    .cancel-btn {
+      background: $color-danger-light;
+      color: $color-danger;
+      border: none;
+      padding: 8px 16px;
+      border-radius: $radius-sm;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+
+      &:hover {
+        background: $color-danger;
+        color: $color-white;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .appointment-card {
+    flex-direction: column;
+
+    &__time-block {
+      width: 100%;
+      flex-direction: row;
+      gap: $spacing-md;
+      padding: $spacing-sm;
+
+      .duration-line {
+        width: 12px;
+        height: 2px;
+        margin: 0;
+      }
+    }
+
+    &__actions {
+      border-left: none;
+      border-top: 1px solid $color-border-light;
+      padding: $spacing-md;
+      justify-content: flex-end;
+    }
+  }
+}
