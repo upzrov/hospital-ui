@@ -19,7 +19,11 @@ export default [
       "pages/DoctorService/DoctorService.tsx",
     ),
     route("services", "pages/ServicesPage/ServicesPage.tsx"),
-    route("services/:id", "pages/ServicesInfo/ServicesInfo.tsx"),
+    route(
+      "services/:serviceId/:doctorId",
+      "pages/ServiceDoctor/ServiceDoctor.tsx",
+    ),
+    route("services/:id", "pages/Service/Service.tsx"),
     route("about", "pages/AboutPage/AboutPage.tsx"),
 
     route("profile", "pages/Profile/Profile.tsx"),

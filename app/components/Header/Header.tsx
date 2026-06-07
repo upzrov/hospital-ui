@@ -13,16 +13,16 @@ export const Header = () => {
           <div className="logo-small"></div>
         </NavLink>
 
-        <NavLink className="header--name" to="/doctors">
-          <p>Лікарі</p> {/* doctor.tsx */}
+        <NavLink className="header--name" to="/services">
+          <p>Послуги</p>
         </NavLink>
 
-        <NavLink className="header--name" to="/services">
-          <p>Послуги</p> {/* services.tsx */}
+        <NavLink className="header--name" to="/doctors">
+          <p>Лікарі</p>
         </NavLink>
 
         <NavLink className="header--name" to="/about">
-          <p>Про нас</p> {/* about.tsx */}
+          <p>Про нас</p>
         </NavLink>
       </div>
 

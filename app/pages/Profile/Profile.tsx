@@ -1,189 +1,177 @@
 import "./Profile.scss";
 
-import { useOutletContext } from "react-router";
-import type { Role } from "~/types/auth";
 import { Signout } from "~/components/Signout/Signout";
+import { AppointmentsList } from "~/components/AppointmentsList/AppointmentsList";
+import { ManagerPanel } from "./ManagerPanel";
+import { DoctorPanel } from "./DoctorPanel";
+import {
+  getRole,
+  getPatientProfile,
+  getDoctorProfile,
+  getPatientAppointments,
+  getDoctorAppointments,
+  getAllAppointments,
+  getDoctors,
+  getServices,
+  getSpecialties,
+  getGenders,
+  getManagers,
+} from "~/api";
+import type { Route } from "./+types/Profile";
+import type { Appointment, Doctor, Manager } from "~/types";
 
-export default function ContactPage() {
-  const { user } = useOutletContext<{ user: Role | null }>();
+export async function clientLoader() {
+  const user = await getRole();
+
+  const [doctors, services, specialties, genders] = await Promise.all([
+    getDoctors(),
+    getServices(),
+    getSpecialties(),
+    getGenders(),
+  ]);
+
+  let patientProfile = null;
+  let doctorProfile = null;
+  let appointments = Array<Appointment>();
+  let managedDoctors = Array<Doctor>();
+  let managers = Array<Manager>();
+
+  if (user === "Patient") {
+    patientProfile = await getPatientProfile();
+    appointments = await getPatientAppointments();
+  } else if (user === "Doctor") {
+    doctorProfile = await getDoctorProfile();
+    appointments = await getDoctorAppointments();
+  } else if (user === "Manager") {
+    appointments = await getAllAppointments();
+    managedDoctors = doctors;
+  } else if (user === "Administrator") {
+    appointments = await getAllAppointments();
+    managers = await getManagers();
+  }
+
+  return {
+    user,
+    patientProfile,
+    doctorProfile,
+    appointments,
+    doctors,
+    services,
+    specialties,
+    genders,
+    managedDoctors,
+    managers,
+  };
+}
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString("uk-UA");
+}
+
+export default function ProfilePage({ loaderData }: Route.ComponentProps) {
+  const {
+    user,
+    patientProfile,
+    doctorProfile,
+    appointments,
+    doctors,
+    services,
+    specialties,
+    genders,
+    managedDoctors,
+    managers,
+  } = loaderData;
+
+  // const doctorSpecialty = specialties.find(
+  //   (s) => s.id === doctorProfile?.specialty,
+  // );
 
   return (
-    <div>
-      <h1>Profile</h1>
-
-      {user && <Signout />}
-
-      <div>
-        <section className="section">
-          <div className="container">
-            <h1 className="title is-4 mb-5">Patient Information</h1>
-
-            <form>
-              <div className="columns">
-                <div className="column">
-                  <div className="field">
-                    <label className="label">Name</label>
-                    <div className="control">
-                      <input
-                        className="input"
-                        type="text"
-                        placeholder="ex. John smith"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="column">
-                  <div className="field">
-                    <label className="label">Email</label>
-                    <div className="control">
-                      <input
-                        className="input"
-                        type="email"
-                        placeholder="ex. john.smith@domain.com"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="column">
-                  <div className="field">
-                    <label className="label">Date of Birth</label>
-                    <div className="control">
-                      <input
-                        className="input"
-                        type="text"
-                        placeholder="ex. 12-02-2001"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="columns">
-                <div className="column">
-                  <div className="field">
-                    <label className="label">Address Line 1</label>
-                    <div className="control">
-                      <input
-                        className="input"
-                        type="text"
-                        placeholder="ex. 6033 Collins Inlet"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="column">
-                  <div className="field">
-                    <label className="label">Address Line 2</label>
-                    <div className="control">
-                      <input
-                        className="input"
-                        type="text"
-                        placeholder="ex. 6033 Collins Inlet"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="column">
-                  <div className="field">
-                    <label className="label">City</label>
-                    <div className="control">
-                      <input
-                        className="input"
-                        type="text"
-                        placeholder="ex. West Gina"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="columns">
-                <div className="column">
-                  <div className="field">
-                    <label className="label">State</label>
-                    <div className="control">
-                      <input
-                        className="input"
-                        type="text"
-                        placeholder="ex. New York"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="column">
-                  <div className="field">
-                    <label className="label">Zipcode</label>
-                    <div className="control">
-                      <input
-                        className="input"
-                        type="text"
-                        placeholder="ex. 70945"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="column">
-                  <div className="field">
-                    <label className="label">How may we contact you:</label>
-                    <div className="control">
-                      <div className="select is-fullwidth">
-                        <select>
-                          <option>Select one</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="columns">
-                <div className="column">
-                  <div className="field">
-                    <label className="label">Contact Info</label>
-                    <div className="control">
-                      <input
-                        className="input"
-                        type="text"
-                        placeholder="ex. 278.268.6823 x36440"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="column">
-                  <div className="field">
-                    <label className="label">How did you hear about us</label>
-                    <div className="control">
-                      <div className="select is-fullwidth">
-                        <select>
-                          <option>Select one</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="column">
-                  <div className="field">
-                    <label className="label">Social Security Number</label>
-                    <div className="control">
-                      <input
-                        className="input"
-                        type="text"
-                        placeholder="0 123 456 7890"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="field mt-4">
-                <div className="control">
-                  <button className="button is-link">Next</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </section>
+    <div className="profile-page">
+      <div className="profile-page__header">
+        <h1>Мій кабінет</h1>
+        <Signout />
       </div>
+
+      <section className="profile-info">
+        <h2>Профіль</h2>
+
+        {user === "Patient" && patientProfile && (
+          <div className="profile-info__card">
+            <div>
+              <strong>Ім'я:</strong> {patientProfile.fullName}
+            </div>
+            <div>
+              <strong>Дата народження:</strong>{" "}
+              {formatDate(patientProfile.dateOfBirth)}
+            </div>
+            <div>
+              <strong>Телефон:</strong> {patientProfile.phoneNumber || "—"}
+            </div>
+          </div>
+        )}
+
+        {user === "Patient" && !patientProfile && (
+          <p className="profile-info__fallback">Пацієнт</p>
+        )}
+
+        {user === "Doctor" && doctorProfile && (
+          <div className="profile-info__card">
+            <div>
+              <strong>Ім'я:</strong> {doctorProfile.fullName}
+            </div>
+            <div>
+              <strong>Email:</strong> {doctorProfile.email}
+            </div>
+            <div>
+              <strong>Робочий час:</strong>{" "}
+              {doctorProfile.workStart?.slice(0, 5)} –{" "}
+              {doctorProfile.workEnd?.slice(0, 5)}
+            </div>
+          </div>
+        )}
+
+        {user === "Doctor" && !doctorProfile && (
+          <p className="profile-info__fallback">Лікар</p>
+        )}
+
+        {user === "Manager" && (
+          <div className="profile-info__card">
+            <div>
+              <strong>Роль:</strong> Менеджер
+            </div>
+            <div>Управління лікарями та послугами</div>
+          </div>
+        )}
+
+        {user === "Administrator" && (
+          <div className="profile-info__card">
+            <div>
+              <strong>Роль:</strong> Адміністратор
+            </div>
+            <div>Управління менеджерами та перегляд усіх записів</div>
+          </div>
+        )}
+      </section>
+
+      <AppointmentsList
+        user={user}
+        appointments={appointments}
+        doctors={doctors}
+        services={services}
+        specialties={specialties}
+      />
+
+      {user === "Administrator" && <ManagerPanel managers={managers} />}
+
+      {user === "Manager" && (
+        <DoctorPanel
+          doctors={managedDoctors}
+          services={services}
+          specialties={specialties}
+          genders={genders}
+        />
+      )}
     </div>
   );
 }

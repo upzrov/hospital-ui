@@ -93,9 +93,6 @@ export async function getAvailableSlots(params: {
   );
 
   if (!response.ok) {
-    // Log the actual server error message for debugging
-    const errorDetails = await response.json();
-    console.error("Server Error Details:", errorDetails);
     throw new Error("Failed to fetch available slots");
   }
 

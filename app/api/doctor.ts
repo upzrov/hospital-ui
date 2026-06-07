@@ -1,5 +1,18 @@
-import type { Service, Specialties } from "~/types";
+import type { Service } from "~/types";
 import type { Doctor } from "~/types/doctor";
+
+export async function getDoctorProfile(): Promise<Doctor> {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/Doctor/me`,
+    { credentials: "include" },
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch doctor profile");
+  }
+
+  return (await response.json()) as Doctor;
+}
 
 export async function getDoctors(): Promise<Doctor[]> {
   const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/Doctor`);

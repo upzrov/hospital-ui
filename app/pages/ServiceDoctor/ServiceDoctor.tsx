@@ -1,6 +1,7 @@
-import "./DoctorService.scss";
+import "./ServiceDoctor.scss";
 
-import type { Route } from "./+types/DoctorService";
+import type { Route } from "./+types/ServiceDoctor";
+
 import {
   createAppointment,
   getDoctor,
@@ -14,23 +15,23 @@ import { SlotPicker } from "~/components/SlotPicker/SlotPicker";
 import { DoctorInfo } from "~/components/DoctorInfo/DoctorInfo";
 
 export async function clientLoader({ params }: Route.LoaderArgs) {
-  const doctorId = Number(params.doctorId);
   const serviceId = Number(params.serviceId);
+  const doctorId = Number(params.doctorId);
 
-  const [doctor, service, specialties] = await Promise.all([
-    getDoctor(doctorId),
+  const [service, doctor, specialties] = await Promise.all([
     getService(serviceId),
+    getDoctor(doctorId),
     getSpecialties(),
   ]);
 
-  return [doctor, service, specialties] as const;
+  return [service, doctor, specialties] as const;
 }
 
-export default function DoctorService({
+export default function ServiceDoctor({
   params,
   loaderData,
 }: Route.ComponentProps) {
-  const [doctor, service, specialties] = loaderData;
+  const [service, doctor, specialties] = loaderData;
   const [chosenSlot, setChosenSlot] = useState<string>("");
 
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ export default function DoctorService({
 
   const canBook = user === "Patient";
 
-  const specialty = specialties.find((sp) => sp.id === doctor.specialty);
+  const specialty = specialties.find((sp) => sp.id === service.specialty);
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -63,42 +64,46 @@ export default function DoctorService({
   };
 
   return (
-    <div className="service-detail-card">
-      <DoctorInfo
-        fullName={doctor.fullName}
-        photoUrl={doctor.photoUrl}
-        specialtyName={specialty?.name}
-      />
+    <div className="service-doctor-card">
+      <div className="service-doctor-card__main">
+        <h1 className="service-doctor-card__name">{service.name}</h1>
 
-      <div className="service-detail-card__main">
-        <h1 className="service-detail-card__name">{service.name}</h1>
-
-        <div className="service-detail-card__description">
+        <div className="service-doctor-card__description">
           {service.description}
         </div>
 
-        <div className="service-detail-card__meta">
-          <div className="service-detail-card__price">
+        <div className="service-doctor-card__meta">
+          <div className="service-doctor-card__price">
             Ціна: ${service.price}
           </div>
 
-          <div className="service-detail-card__duration">
+          <div className="service-doctor-card__duration">
             Тривалість: {service.durationMinutes} хв
           </div>
         </div>
       </div>
 
-      <form className="service-detail-card__booking" onSubmit={handleSubmit}>
+      <div className="service-doctor-card__doctor">
+        <DoctorInfo
+          fullName={doctor.fullName}
+          photoUrl={doctor.photoUrl}
+          specialtyName={
+            specialties.find((s) => s.id === doctor.specialty)?.name
+          }
+        />
+      </div>
+
+      <form className="service-doctor-card__booking" onSubmit={handleSubmit}>
         <h3>Доступні слоти</h3>
 
         {!user && (
-          <p className="service-detail-card__notice">
+          <p className="service-doctor-card__notice">
             Увійдіть як пацієнт, щоб записатися
           </p>
         )}
 
         {user && !canBook && (
-          <p className="service-detail-card__notice">
+          <p className="service-doctor-card__notice">
             Записатися можуть лише пацієнти
           </p>
         )}
@@ -110,7 +115,7 @@ export default function DoctorService({
           disabled={!canBook}
         />
 
-        <div className="service-detail-card__actions">
+        <div className="service-doctor-card__actions">
           <button type="submit" disabled={!canBook}>
             Записатися на прийом
           </button>

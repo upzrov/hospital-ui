@@ -1,0 +1,72 @@
+.appointments-section {
+  h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1a237e;
+    margin: 0 0 20px 0;
+  }
+
+  &__empty {
+    color: #607d8b;
+    font-size: 16px;
+  }
+}
+
+.appointments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.appointment-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border: 1px solid #e0e6ed;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__service {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a237e;
+  }
+
+  &__doctor,
+  &__specialty,
+  &__time,
+  &__patient {
+    font-size: 14px;
+    color: #455a64;
+  }
+
+  &__time {
+    font-weight: 600;
+    color: #37474f;
+    margin-top: 4px;
+  }
+
+  &__delete {
+    flex-shrink: 0;
+    background: #eceff1;
+    color: #c62828;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      background: #ffcdd2;
+    }
+  }
+}

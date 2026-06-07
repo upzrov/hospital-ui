@@ -1,5 +1,18 @@
 import type { Patient } from "~/types/patient";
 
+export async function getPatientProfile(): Promise<Patient> {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/Patient/me`,
+    { credentials: "include" },
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch patient profile");
+  }
+
+  return (await response.json()) as Patient;
+}
+
 export async function getPatients(): Promise<Patient[]> {
   const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/Patient`, {
     credentials: "include",
