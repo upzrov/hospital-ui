@@ -1,5 +1,5 @@
-import type { Appointment, AvailableSlot } from "~/types/appointment";
-import { handleResponse } from "./utils";
+import type { Appointment, AvailableSlot } from '~/types/appointment';
+import { handleResponse } from './utils';
 
 export async function createAppointment(form: {
   startAt: string;
@@ -9,9 +9,9 @@ export async function createAppointment(form: {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Appointment`,
     {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(form),
     },
   );
@@ -22,7 +22,7 @@ export async function createAppointment(form: {
 export async function getAllAppointments(): Promise<Appointment[]> {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Appointment`,
-    { credentials: "include" },
+    { credentials: 'include' },
   );
 
   return handleResponse(response);
@@ -32,8 +32,8 @@ export async function deleteAppointment(id: number) {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Appointment/${id}`,
     {
-      method: "DELETE",
-      credentials: "include",
+      method: 'DELETE',
+      credentials: 'include',
     },
   );
 
@@ -44,7 +44,7 @@ export async function getPatientAppointments(): Promise<Appointment[]> {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Appointment/patient/appointments`,
     {
-      credentials: "include",
+      credentials: 'include',
     },
   );
 
@@ -54,7 +54,7 @@ export async function getPatientAppointments(): Promise<Appointment[]> {
 export async function getDoctorAppointments(): Promise<Appointment[]> {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Appointment/doctor/appointments`,
-    { credentials: "include" },
+    { credentials: 'include' },
   );
 
   return handleResponse(response);
@@ -74,7 +74,7 @@ export async function getAvailableSlots(params: {
 
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Appointment/available-slots?${queryParams.toString()}`,
-    { credentials: "include" },
+    { credentials: 'include' },
   );
 
   return handleResponse(response);

@@ -1,4 +1,4 @@
-@import "../variables";
+@import '../variables';
 
 .header {
   display: flex;
@@ -11,7 +11,8 @@
   top: 0;
   z-index: 1000;
 
-  &__main, &__secondary {
+  &__main,
+  &__secondary {
     display: flex;
     gap: 30px;
     align-items: center;
@@ -21,7 +22,7 @@
 .logo-small {
   width: 45px;
   height: 45px;
-  background: url("/logo/logo-small.png") center/contain no-repeat;
+  background: url('/logo/logo-small.png') center/contain no-repeat;
   transition: transform 0.3s ease;
 
   &:hover {

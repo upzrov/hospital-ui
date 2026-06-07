@@ -1,17 +1,17 @@
-import { useState } from "react";
-import { useNavigate, useOutletContext, useRevalidator } from "react-router";
+import { useState } from 'react';
+import { useNavigate, useOutletContext, useRevalidator } from 'react-router';
 import {
   assignServiceToDoctor,
   deleteAssignedDoctorService,
   getDoctor,
   getServices,
   getSpecialties,
-} from "~/api";
-import { ErrorNotification } from "~/components/ErrorNotification";
-import { useError } from "~/hooks/useError";
-import "~/styles/routes/Doctor.scss";
-import type { Role } from "~/types/auth";
-import type { Route } from "./+types/Doctor";
+} from '~/api';
+import { ErrorNotification } from '~/components/ErrorNotification';
+import { useError } from '~/hooks/useError';
+import '~/styles/routes/Doctor.scss';
+import type { Role } from '~/types/auth';
+import type { Route } from './+types/Doctor';
 
 export async function loader({ params }: Route.ComponentProps) {
   return Promise.all([
@@ -28,7 +28,7 @@ export default function Doctor({ loaderData }: Route.ComponentProps) {
   const { user } = useOutletContext<{ user: Role | null }>();
   const { error, handleError, clearError } = useError();
 
-  const [selectedServiceId, setSelectedServiceId] = useState("");
+  const [selectedServiceId, setSelectedServiceId] = useState('');
 
   if (!doctor) {
     return (
@@ -42,7 +42,7 @@ export default function Doctor({ loaderData }: Route.ComponentProps) {
     if (!selectedServiceId) return;
     try {
       await assignServiceToDoctor(doctor.doctorId, Number(selectedServiceId));
-      setSelectedServiceId("");
+      setSelectedServiceId('');
       revalidator.revalidate();
     } catch (err) {
       handleError(err);
@@ -50,7 +50,7 @@ export default function Doctor({ loaderData }: Route.ComponentProps) {
   };
 
   const handleRemove = async (serviceId: number) => {
-    if (!confirm("Видалити цю послугу у лікаря?")) return;
+    if (!confirm('Видалити цю послугу у лікаря?')) return;
     try {
       await deleteAssignedDoctorService(doctor.doctorId, serviceId);
       revalidator.revalidate();
@@ -61,8 +61,8 @@ export default function Doctor({ loaderData }: Route.ComponentProps) {
 
   const specialty = specialties.find((sp) => sp.id === doctor.specialty);
 
-  const workStart = doctor.workStart ? doctor.workStart.slice(0, 5) : "—";
-  const workEnd = doctor.workEnd ? doctor.workEnd.slice(0, 5) : "—";
+  const workStart = doctor.workStart ? doctor.workStart.slice(0, 5) : '—';
+  const workEnd = doctor.workEnd ? doctor.workEnd.slice(0, 5) : '—';
 
   const availableServices = allServices.filter(
     (s) =>
@@ -84,7 +84,7 @@ export default function Doctor({ loaderData }: Route.ComponentProps) {
             <h1 className="doctor-page-card__name">{doctor.fullName}</h1>
 
             <div className="doctor-page-card__specialty">
-              Спеціальність: {specialty?.name ?? "—"}
+              Спеціальність: {specialty?.name ?? '—'}
             </div>
 
             <div className="doctor-page-card__email">Email: {doctor.email}</div>
@@ -97,7 +97,9 @@ export default function Doctor({ loaderData }: Route.ComponentProps) {
       </div>
 
       <section className="doctor-page__services">
-        <h2>{user === "Manager" ? "Управління послугами" : "Записатися на:"}</h2>
+        <h2>
+          {user === 'Manager' ? 'Управління послугами' : 'Записатися на:'}
+        </h2>
 
         <div className="doctor-page__services-list">
           {doctor.services?.length ? (
@@ -107,20 +109,20 @@ export default function Doctor({ loaderData }: Route.ComponentProps) {
                   className="service-btn"
                   onClick={() => {
                     if (!user) {
-                      navigate("/signin");
+                      navigate('/signin');
                       return;
                     }
-                    if (user === "Manager") return;
+                    if (user === 'Manager') return;
                     navigate(
                       `/doctors/${doctor.doctorId}/${service.serviceId}`,
                     );
                   }}
-                  disabled={user === "Manager"}
+                  disabled={user === 'Manager'}
                 >
                   <span className="service-name">{service.name}</span>
                   <span className="service-price">${service.price}</span>
                 </button>
-                {user === "Manager" && (
+                {user === 'Manager' && (
                   <button
                     className="remove-btn"
                     onClick={() => handleRemove(service.serviceId)}
@@ -135,7 +137,7 @@ export default function Doctor({ loaderData }: Route.ComponentProps) {
           )}
         </div>
 
-        {user === "Manager" && availableServices.length > 0 && (
+        {user === 'Manager' && availableServices.length > 0 && (
           <div className="doctor-page__management">
             <h3>Призначити нову послугу</h3>
             <div className="management-controls">

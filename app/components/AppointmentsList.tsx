@@ -1,12 +1,12 @@
-import "~/styles/components/AppointmentsList.scss";
+import '~/styles/components/AppointmentsList.scss';
 
-import { deleteAppointment } from "~/api";
-import type { Appointment } from "~/types/appointment";
-import type { Doctor } from "~/types/doctor";
-import type { Role } from "~/types/auth";
-import type { Service } from "~/types/service";
-import type { Specialties } from "~/types/lookup";
-import { useRevalidator } from "react-router";
+import { deleteAppointment } from '~/api';
+import type { Appointment } from '~/types/appointment';
+import type { Doctor } from '~/types/doctor';
+import type { Role } from '~/types/auth';
+import type { Service } from '~/types/service';
+import type { Specialties } from '~/types/lookup';
+import { useRevalidator } from 'react-router';
 
 interface Props {
   user: Role | null;
@@ -18,16 +18,16 @@ interface Props {
 
 function formatDate(iso: string) {
   const date = new Date(iso);
-  return date.toLocaleDateString("uk-UA", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
+  return date.toLocaleDateString('uk-UA', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
   });
 }
 
 function formatTime(iso: string) {
   const date = new Date(iso);
-  const pad = (n: number) => n.toString().padStart(2, "0");
+  const pad = (n: number) => n.toString().padStart(2, '0');
   return `${pad(date.getUTCHours())}:${pad(date.getUTCMinutes())}`;
 }
 
@@ -40,30 +40,30 @@ export function AppointmentsList({
 }: Props) {
   const revalidator = useRevalidator();
 
-  const canDelete = user === "Patient" || user === "Manager";
+  const canDelete = user === 'Patient' || user === 'Manager';
 
   const pageTitle =
-    user === "Administrator" || user === "Manager"
-      ? "Усі записи"
-      : user === "Doctor"
-        ? "Мої прийоми"
-        : "Мої записи";
+    user === 'Administrator' || user === 'Manager'
+      ? 'Усі записи'
+      : user === 'Doctor'
+        ? 'Мої прийоми'
+        : 'Мої записи';
 
   const handleDelete = async (id: number) => {
-    if (!confirm("Скасувати цей запис?")) return;
+    if (!confirm('Скасувати цей запис?')) return;
 
     try {
       await deleteAppointment(id);
       revalidator.revalidate();
     } catch (error) {
-      console.error("Failed to delete appointment:", error);
+      console.error('Failed to delete appointment:', error);
     }
   };
 
   // Group appointments by date
   const groupedAppointments = appointments.reduce(
     (groups: { [key: string]: Appointment[] }, appointment) => {
-      const dateKey = appointment.startAt.split("T")[0];
+      const dateKey = appointment.startAt.split('T')[0];
       if (!groups[dateKey]) {
         groups[dateKey] = [];
       }
@@ -113,7 +113,7 @@ export function AppointmentsList({
 
                     return (
                       <div
-                        className={`appointment-card ${isPast ? "is-past" : ""}`}
+                        className={`appointment-card ${isPast ? 'is-past' : ''}`}
                         key={appointment.appointmentId}
                       >
                         <div className="appointment-card__time-block">
@@ -141,15 +141,15 @@ export function AppointmentsList({
                                 {doctor?.fullName ?? `#${appointment.doctorId}`}
                                 {specialty && (
                                   <span className="sub-text">
-                                    {" "}
+                                    {' '}
                                     • {specialty.name}
                                   </span>
                                 )}
                               </span>
                             </div>
 
-                            {(user === "Administrator" ||
-                              user === "Manager") && (
+                            {(user === 'Administrator' ||
+                              user === 'Manager') && (
                               <div className="detail-item patient">
                                 <span className="text">
                                   ID пацієнта: {appointment.patientId}

@@ -1,4 +1,4 @@
-import type { Service } from "./service";
+import type { Service } from './service';
 
 export interface Doctor {
   doctorId: number;

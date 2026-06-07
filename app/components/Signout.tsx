@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router";
-import { signOut } from "~/api";
+import { useNavigate } from 'react-router';
+import { signOut } from '~/api';
 
 export const Signout = () => {
   const navigate = useNavigate();
@@ -7,7 +7,7 @@ export const Signout = () => {
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     await signOut();
-    navigate("/signin");
+    navigate('/signin');
   };
 
   return (

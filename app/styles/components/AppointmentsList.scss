@@ -1,4 +1,4 @@
-@import "../variables";
+@import '../variables';
 
 .appointments-section {
   display: flex;
@@ -79,7 +79,9 @@
   border: 1px solid $color-border;
   border-radius: $radius-md;
   overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
   box-shadow: $shadow-sm;
 
   &:hover:not(.is-past) {

@@ -1,7 +1,7 @@
-import { getDoctors, getService, getSpecialties } from "~/api";
-import DoctorCard from "~/components/DoctorCard";
-import "~/styles/routes/Service.scss";
-import type { Route } from "./+types/Service";
+import { getDoctors, getService, getSpecialties } from '~/api';
+import DoctorCard from '~/components/DoctorCard';
+import '~/styles/routes/Service.scss';
+import type { Route } from './+types/Service';
 
 export async function clientLoader({ params }: Route.ComponentProps) {
   return Promise.all([
@@ -46,7 +46,7 @@ export default function Service({ loaderData }: Route.ComponentProps) {
         </div>
 
         <div className="service-page-card__specialty">
-          Спеціальність: {specialty?.name ?? "—"}
+          Спеціальність: {specialty?.name ?? '—'}
         </div>
       </div>
 

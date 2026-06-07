@@ -1,8 +1,8 @@
-import "~/styles/components/ServicesCard.scss";
+import '~/styles/components/ServicesCard.scss';
 
-import React from "react";
-import { useNavigate, useOutletContext } from "react-router";
-import type { Doctor, Role, Service } from "~/types";
+import React from 'react';
+import { useNavigate, useOutletContext } from 'react-router';
+import type { Doctor, Role, Service } from '~/types';
 
 interface Props {
   service: Service;

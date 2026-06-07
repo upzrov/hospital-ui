@@ -1,6 +1,6 @@
-import { NavLink, useOutletContext } from "react-router";
-import "~/styles/components/Header.scss";
-import type { Role } from "~/types/auth";
+import { NavLink, useOutletContext } from 'react-router';
+import '~/styles/components/Header.scss';
+import type { Role } from '~/types/auth';
 
 export const Header = () => {
   const { user } = useOutletContext<{ user: Role | null }>();

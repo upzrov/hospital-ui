@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { useNavigate, useOutletContext } from "react-router";
+import { useState } from 'react';
+import { useNavigate, useOutletContext } from 'react-router';
 import {
   createAppointment,
   getDoctor,
   getService,
   getSpecialties,
-} from "~/api";
-import { DoctorInfo } from "~/components/DoctorInfo";
-import { SlotPicker } from "~/components/SlotPicker";
-import "~/styles/routes/DoctorService.scss";
-import type { Role } from "~/types/auth";
-import type { Route } from "./+types/DoctorService";
+} from '~/api';
+import { DoctorInfo } from '~/components/DoctorInfo';
+import { SlotPicker } from '~/components/SlotPicker';
+import '~/styles/routes/DoctorService.scss';
+import type { Role } from '~/types/auth';
+import type { Route } from './+types/DoctorService';
 
 export async function clientLoader({ params }: Route.LoaderArgs) {
   const doctorId = Number(params.doctorId);
@@ -30,7 +30,7 @@ export default function DoctorService({
   loaderData,
 }: Route.ComponentProps) {
   const [doctor, service, specialties] = loaderData;
-  const [chosenSlot, setChosenSlot] = useState<string>("");
+  const [chosenSlot, setChosenSlot] = useState<string>('');
 
   const navigate = useNavigate();
   const { user } = useOutletContext<{ user: Role | null }>();
@@ -38,7 +38,7 @@ export default function DoctorService({
   const doctorId = Number(params.doctorId);
   const serviceId = Number(params.serviceId);
 
-  const canBook = user === "Patient";
+  const canBook = user === 'Patient';
 
   const specialty = specialties.find((sp) => sp.id === doctor.specialty);
 
@@ -46,11 +46,11 @@ export default function DoctorService({
     e.preventDefault();
 
     if (!canBook) {
-      alert("Записатися можуть лише пацієнти");
+      alert('Записатися можуть лише пацієнти');
       return;
     }
 
-    if (!chosenSlot) return alert("Будь ласка, оберіть час!");
+    if (!chosenSlot) return alert('Будь ласка, оберіть час!');
 
     await createAppointment({
       doctorId,
@@ -58,7 +58,7 @@ export default function DoctorService({
       startAt: chosenSlot,
     });
 
-    navigate("/profile");
+    navigate('/profile');
   };
 
   return (

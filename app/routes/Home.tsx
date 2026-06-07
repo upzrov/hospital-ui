@@ -1,8 +1,8 @@
-import { NavLink } from "react-router";
-import { getDoctors } from "~/api";
-import DoctorCard from "~/components/DoctorCard";
-import "~/styles/routes/Home.scss";
-import type { Route } from "./+types/Home";
+import { NavLink } from 'react-router';
+import { getDoctors } from '~/api';
+import DoctorCard from '~/components/DoctorCard';
+import '~/styles/routes/Home.scss';
+import type { Route } from './+types/Home';
 
 export const loader = getDoctors;
 
@@ -24,10 +24,10 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               </p>
 
               <div className="hero-buttons">
-                <NavLink to={"/doctors"} className="btn btn-primary">
+                <NavLink to={'/doctors'} className="btn btn-primary">
                   Записатися на прийом
                 </NavLink>
-                <NavLink to={"/services"} className="btn btn-outline">
+                <NavLink to={'/services'} className="btn btn-outline">
                   Наші послуги
                 </NavLink>
               </div>

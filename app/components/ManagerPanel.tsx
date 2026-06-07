@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useRevalidator } from "react-router";
-import { createManager } from "~/api";
-import type { Manager } from "~/types/manager";
+import { useState } from 'react';
+import { useRevalidator } from 'react-router';
+import { createManager } from '~/api';
+import type { Manager } from '~/types/manager';
 
 interface Props {
   managers: Manager[];
@@ -10,10 +10,10 @@ interface Props {
 export function ManagerPanel({ managers }: Props) {
   const revalidator = useRevalidator();
   const [form, setForm] = useState({
-    fullName: "",
-    phoneNumber: "",
-    email: "",
-    password: "",
+    fullName: '',
+    phoneNumber: '',
+    email: '',
+    password: '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +30,7 @@ export function ManagerPanel({ managers }: Props) {
       password: form.password,
     });
 
-    setForm({ fullName: "", phoneNumber: "", email: "", password: "" });
+    setForm({ fullName: '', phoneNumber: '', email: '', password: '' });
     revalidator.revalidate();
   };
 

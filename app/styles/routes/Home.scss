@@ -1,4 +1,4 @@
-@import "../variables";
+@import '../variables';
 
 .home-page {
   padding-bottom: 80px;
@@ -11,8 +11,8 @@
   min-height: 500px;
 
   background-image:
-          linear-gradient(to bottom, rgba(255, 255, 255, 0) 70%, $color-white 100%),
-          url('/photo/hospital-2.jpeg');
+    linear-gradient(to bottom, rgba(255, 255, 255, 0) 70%, $color-white 100%),
+    url('/photo/hospital-2.jpeg');
 
   background-size: cover;
   background-position: center;
@@ -21,8 +21,6 @@
   color: $color-white;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-
 
 /* Напівпрозорий шар поверх фото для читабельності тексту */
 .hero-overlay {
@@ -104,7 +102,7 @@
     font-weight: 900;
     color: $color-white;
     margin-bottom: $spacing-lg;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
 
   &__grid {

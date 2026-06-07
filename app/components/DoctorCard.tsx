@@ -1,11 +1,11 @@
-import "~/styles/components/DoctorCard.scss";
+import '~/styles/components/DoctorCard.scss';
 
-import React from "react";
-import type { Doctor, Role, Specialties } from "~/types";
-import { useNavigate, useOutletContext, useRevalidator } from "react-router";
-import { deleteDoctor, updateDoctor } from "~/api";
-import { useError } from "~/hooks/useError";
-import { ErrorNotification } from "./ErrorNotification";
+import React from 'react';
+import type { Doctor, Role, Specialties } from '~/types';
+import { useNavigate, useOutletContext, useRevalidator } from 'react-router';
+import { deleteDoctor, updateDoctor } from '~/api';
+import { useError } from '~/hooks/useError';
+import { ErrorNotification } from './ErrorNotification';
 
 interface Props {
   doctor: Doctor;
@@ -41,12 +41,12 @@ export const DoctorCard: React.FC<Props> = ({
 
   const handleUpdateSchedule = async () => {
     const workStart = prompt(
-      "Початок робочого дня (HH:MM)",
-      doctor.workStart?.slice(0, 5) ?? "09:00",
+      'Початок робочого дня (HH:MM)',
+      doctor.workStart?.slice(0, 5) ?? '09:00',
     );
     const workEnd = prompt(
-      "Кінець робочого дня (HH:MM)",
-      doctor.workEnd?.slice(0, 5) ?? "17:00",
+      'Кінець робочого дня (HH:MM)',
+      doctor.workEnd?.slice(0, 5) ?? '17:00',
     );
 
     if (!workStart || !workEnd) return;
@@ -75,15 +75,15 @@ export const DoctorCard: React.FC<Props> = ({
         <div className="info-header">
           <div className="info-main">
             <h2 className="doctor-name">{doctor.fullName}</h2>
-            <p className="specialization">{specialty?.name ?? ""}</p>
+            <p className="specialization">{specialty?.name ?? ''}</p>
 
-            {user === "Manager" && isManaged && (
+            {user === 'Manager' && isManaged && (
               <div className="doctor-card__schedule-info">
                 {doctor.workStart?.slice(0, 5)} – {doctor.workEnd?.slice(0, 5)}
               </div>
             )}
           </div>
-          {user === "Manager" && isManaged && (
+          {user === 'Manager' && isManaged && (
             <div className="doctor-card__actions">
               <button
                 type="button"
@@ -104,7 +104,7 @@ export const DoctorCard: React.FC<Props> = ({
         </div>
 
         <div className="info-footer">
-          {user === "Manager" && (
+          {user === 'Manager' && (
             <button
               className="book-btn"
               onClick={() => navigate(`/doctors/${doctor.doctorId}`)}
@@ -113,12 +113,12 @@ export const DoctorCard: React.FC<Props> = ({
             </button>
           )}
 
-          {(user === "Patient" || !user) && (
+          {(user === 'Patient' || !user) && (
             <button
               className="book-btn"
               onClick={() => {
                 if (!user) {
-                  navigate("/signin");
+                  navigate('/signin');
                   return;
                 }
 

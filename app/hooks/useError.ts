@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback } from 'react';
 
 export function useError() {
   const [error, setError] = useState<string | null>(null);
@@ -6,7 +6,7 @@ export function useError() {
   const handleError = useCallback((err: any) => {
     const message = err instanceof Error ? err.message : String(err);
     setError(message);
-    
+
     // Auto-close after 5 seconds
     setTimeout(() => {
       setError(null);

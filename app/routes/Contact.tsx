@@ -1,4 +1,4 @@
-import "~/styles/routes/Contact.scss";
+import '~/styles/routes/Contact.scss';
 
 export default function Contact() {
   return (

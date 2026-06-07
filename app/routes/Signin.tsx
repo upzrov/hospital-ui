@@ -1,16 +1,16 @@
-import "~/styles/routes/Signin.scss";
-import "~/styles/text.scss";
+import '~/styles/routes/Signin.scss';
+import '~/styles/text.scss';
 
-import { useState } from "react";
-import { Link, useNavigate } from "react-router";
-import { signIn } from "~/api";
-import { ErrorNotification } from "~/components/ErrorNotification";
-import { useError } from "~/hooks/useError";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router';
+import { signIn } from '~/api';
+import { ErrorNotification } from '~/components/ErrorNotification';
+import { useError } from '~/hooks/useError';
 
 export const Signin = () => {
   const [form, setForm] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -29,14 +29,14 @@ export const Signin = () => {
     e.preventDefault();
 
     if (!form.email.trim() || !form.password.trim()) {
-      handleError("Заповніть всі поля");
+      handleError('Заповніть всі поля');
       return;
     }
 
     try {
       setLoading(true);
       await signIn(form);
-      window.location.href = "/";
+      window.location.href = '/';
     } catch (error) {
       handleError(error);
     } finally {
@@ -47,7 +47,7 @@ export const Signin = () => {
   return (
     <div className="auth-page">
       <ErrorNotification message={error} onClose={clearError} />
-      
+
       <div className="auth-card">
         <h1 className="auth-title">Вхід</h1>
 
@@ -77,16 +77,18 @@ export const Signin = () => {
           </div>
 
           <button
-            className={`auth-submit-btn ${loading ? "loading" : ""}`}
+            className={`auth-submit-btn ${loading ? 'loading' : ''}`}
             type="submit"
             disabled={loading}
           >
-            {loading ? "Вхід..." : "Увійти"}
+            {loading ? 'Вхід...' : 'Увійти'}
           </button>
 
           <div className="auth-footer">
             <span className="auth-footer-text">В мене ще немає профілю?</span>
-            <Link to="/signup" className="auth-link">Зареєструватися</Link>
+            <Link to="/signup" className="auth-link">
+              Зареєструватися
+            </Link>
           </div>
         </form>
       </div>

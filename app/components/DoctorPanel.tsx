@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { useRevalidator } from "react-router";
+import { useState } from 'react';
+import { useRevalidator } from 'react-router';
 import {
   assignServiceToDoctor,
   createDoctor,
   deleteDoctor,
   updateDoctor,
-} from "~/api";
-import { ErrorNotification } from "~/components/ErrorNotification";
-import { useError } from "~/hooks/useError";
-import type { Gender, Service, Specialties } from "~/types";
-import type { Doctor } from "~/types/doctor";
+} from '~/api';
+import { ErrorNotification } from '~/components/ErrorNotification';
+import { useError } from '~/hooks/useError';
+import type { Gender, Service, Specialties } from '~/types';
+import type { Doctor } from '~/types/doctor';
 
 interface Props {
   doctors: Doctor[];
@@ -19,13 +19,13 @@ interface Props {
 }
 
 const emptyForm = {
-  fullName: "",
-  specialty: "",
-  workStart: "09:00",
-  workEnd: "17:00",
-  email: "",
-  password: "",
-  gender: "",
+  fullName: '',
+  specialty: '',
+  workStart: '09:00',
+  workEnd: '17:00',
+  email: '',
+  password: '',
+  gender: '',
 };
 
 export function DoctorPanel({
@@ -36,8 +36,8 @@ export function DoctorPanel({
 }: Props) {
   const revalidator = useRevalidator();
   const [form, setForm] = useState(emptyForm);
-  const [assignDoctorId, setAssignDoctorId] = useState("");
-  const [assignServiceId, setAssignServiceId] = useState("");
+  const [assignDoctorId, setAssignDoctorId] = useState('');
+  const [assignServiceId, setAssignServiceId] = useState('');
   const { error, handleError, clearError } = useError();
 
   const handleChange = (
@@ -68,7 +68,7 @@ export function DoctorPanel({
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm("Видалити цього лікаря?")) return;
+    if (!confirm('Видалити цього лікаря?')) return;
 
     try {
       await deleteDoctor(id);
@@ -88,8 +88,8 @@ export function DoctorPanel({
         Number(assignDoctorId),
         Number(assignServiceId),
       );
-      setAssignDoctorId("");
-      setAssignServiceId("");
+      setAssignDoctorId('');
+      setAssignServiceId('');
       revalidator.revalidate();
     } catch (err) {
       handleError(err);
@@ -98,12 +98,12 @@ export function DoctorPanel({
 
   const handleUpdateSchedule = async (doctor: Doctor) => {
     const workStart = prompt(
-      "Початок робочого дня (HH:MM)",
-      doctor.workStart?.slice(0, 5) ?? "09:00",
+      'Початок робочого дня (HH:MM)',
+      doctor.workStart?.slice(0, 5) ?? '09:00',
     );
     const workEnd = prompt(
-      "Кінець робочого дня (HH:MM)",
-      doctor.workEnd?.slice(0, 5) ?? "17:00",
+      'Кінець робочого дня (HH:MM)',
+      doctor.workEnd?.slice(0, 5) ?? '17:00',
     );
 
     if (!workStart || !workEnd) return;
@@ -217,7 +217,7 @@ export function DoctorPanel({
             value={assignDoctorId}
             onChange={(e) => {
               setAssignDoctorId(e.target.value);
-              setAssignServiceId("");
+              setAssignServiceId('');
             }}
             required
           >
@@ -261,10 +261,10 @@ export function DoctorPanel({
               <div className="profile-panel__item" key={doctor.doctorId}>
                 <div>
                   <strong>{doctor.fullName}</strong>
-                  <div>{specialty?.name ?? "—"}</div>
+                  <div>{specialty?.name ?? '—'}</div>
                   <div>{doctor.email}</div>
                   <div>
-                    {doctor.workStart?.slice(0, 5)} –{" "}
+                    {doctor.workStart?.slice(0, 5)} –{' '}
                     {doctor.workEnd?.slice(0, 5)}
                   </div>
                 </div>

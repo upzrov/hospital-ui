@@ -9,13 +9,13 @@ import {
   getRole,
   getServices,
   getSpecialties,
-} from "~/api";
-import { AppointmentsList } from "~/components/AppointmentsList";
-import { ManagerPanel } from "~/components/ManagerPanel";
-import { Signout } from "~/components/Signout";
-import "~/styles/routes/Profile.scss";
-import type { Appointment, Manager } from "~/types";
-import type { Route } from "./+types/Profile";
+} from '~/api';
+import { AppointmentsList } from '~/components/AppointmentsList';
+import { ManagerPanel } from '~/components/ManagerPanel';
+import { Signout } from '~/components/Signout';
+import '~/styles/routes/Profile.scss';
+import type { Appointment, Manager } from '~/types';
+import type { Route } from './+types/Profile';
 
 export async function clientLoader() {
   const user = await getRole();
@@ -31,15 +31,15 @@ export async function clientLoader() {
   let appointments = Array<Appointment>();
   let managers = Array<Manager>();
 
-  if (user === "Patient") {
+  if (user === 'Patient') {
     patientProfile = await getPatientProfile();
     appointments = await getPatientAppointments();
-  } else if (user === "Doctor") {
+  } else if (user === 'Doctor') {
     doctorProfile = await getDoctorProfile();
     appointments = await getDoctorAppointments();
-  } else if (user === "Manager") {
+  } else if (user === 'Manager') {
     appointments = await getAllAppointments();
-  } else if (user === "Administrator") {
+  } else if (user === 'Administrator') {
     appointments = await getAllAppointments();
     managers = await getManagers();
   }
@@ -57,7 +57,7 @@ export async function clientLoader() {
 }
 
 function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("uk-UA");
+  return new Date(iso).toLocaleDateString('uk-UA');
 }
 
 export default function Profile({ loaderData }: Route.ComponentProps) {
@@ -82,26 +82,26 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
       <section className="profile-info">
         <h2>Профіль</h2>
 
-        {user === "Patient" && patientProfile && (
+        {user === 'Patient' && patientProfile && (
           <div className="profile-info__card">
             <div>
               <strong>Ім'я:</strong> {patientProfile.fullName}
             </div>
             <div>
-              <strong>Дата народження:</strong>{" "}
+              <strong>Дата народження:</strong>{' '}
               {formatDate(patientProfile.dateOfBirth)}
             </div>
             <div>
-              <strong>Телефон:</strong> {patientProfile.phoneNumber || "—"}
+              <strong>Телефон:</strong> {patientProfile.phoneNumber || '—'}
             </div>
           </div>
         )}
 
-        {user === "Patient" && !patientProfile && (
+        {user === 'Patient' && !patientProfile && (
           <p className="profile-info__fallback">Пацієнт</p>
         )}
 
-        {user === "Doctor" && doctorProfile && (
+        {user === 'Doctor' && doctorProfile && (
           <div className="profile-info__card">
             <div>
               <strong>Ім'я:</strong> {doctorProfile.fullName}
@@ -110,18 +110,18 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
               <strong>Email:</strong> {doctorProfile.email}
             </div>
             <div>
-              <strong>Робочий час:</strong>{" "}
-              {doctorProfile.workStart?.slice(0, 5)} –{" "}
+              <strong>Робочий час:</strong>{' '}
+              {doctorProfile.workStart?.slice(0, 5)} –{' '}
               {doctorProfile.workEnd?.slice(0, 5)}
             </div>
           </div>
         )}
 
-        {user === "Doctor" && !doctorProfile && (
+        {user === 'Doctor' && !doctorProfile && (
           <p className="profile-info__fallback">Лікар</p>
         )}
 
-        {user === "Manager" && (
+        {user === 'Manager' && (
           <div className="profile-info__card">
             <div>
               <strong>Роль:</strong> Менеджер
@@ -130,7 +130,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
           </div>
         )}
 
-        {user === "Administrator" && (
+        {user === 'Administrator' && (
           <div className="profile-info__card">
             <div>
               <strong>Роль:</strong> Адміністратор
@@ -148,7 +148,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
         specialties={specialties}
       />
 
-      {user === "Administrator" && <ManagerPanel managers={managers} />}
+      {user === 'Administrator' && <ManagerPanel managers={managers} />}
     </div>
   );
 }

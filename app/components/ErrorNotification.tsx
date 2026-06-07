@@ -1,5 +1,5 @@
-import React from "react";
-import "~/styles/components/ErrorNotification.scss";
+import React from 'react';
+import '~/styles/components/ErrorNotification.scss';
 
 interface ErrorNotificationProps {
   message: string | null;

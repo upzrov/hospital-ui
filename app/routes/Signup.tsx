@@ -1,18 +1,18 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router";
-import { signUp } from "~/api";
-import { ErrorNotification } from "~/components/ErrorNotification";
-import { useError } from "~/hooks/useError";
-import "~/styles/routes/Signup.scss";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router';
+import { signUp } from '~/api';
+import { ErrorNotification } from '~/components/ErrorNotification';
+import { useError } from '~/hooks/useError';
+import '~/styles/routes/Signup.scss';
 
 export const Signup = () => {
   const [form, setForm] = useState({
-    name: "",
-    fullName: "",
-    dateOfBirth: "",
-    phoneNumber: "",
-    password: "",
-    email: "",
+    name: '',
+    fullName: '',
+    dateOfBirth: '',
+    phoneNumber: '',
+    password: '',
+    email: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -31,7 +31,7 @@ export const Signup = () => {
     try {
       setLoading(true);
       await signUp(form);
-      navigate("/signin");
+      navigate('/signin');
     } catch (error) {
       handleError(error);
     } finally {
@@ -42,7 +42,7 @@ export const Signup = () => {
   return (
     <div className="auth-page">
       <ErrorNotification message={error} onClose={clearError} />
-      
+
       <div className="auth-card">
         <h1 className="auth-title">Реєстрація</h1>
 
@@ -121,16 +121,18 @@ export const Signup = () => {
           </div>
 
           <button
-            className={`auth-submit-btn ${loading ? "loading" : ""}`}
+            className={`auth-submit-btn ${loading ? 'loading' : ''}`}
             type="submit"
             disabled={loading}
           >
-            {loading ? "Реєстрація..." : "Зареєструватися"}
+            {loading ? 'Реєстрація...' : 'Зареєструватися'}
           </button>
 
           <div className="auth-footer">
             <span className="auth-footer-text">Вже маєте профіль?</span>
-            <Link to="/signin" className="auth-link">Увійти</Link>
+            <Link to="/signin" className="auth-link">
+              Увійти
+            </Link>
           </div>
         </form>
       </div>

@@ -1,11 +1,11 @@
-import type { Service } from "~/types";
-import type { Doctor } from "~/types/doctor";
-import { handleResponse } from "./utils";
+import type { Service } from '~/types';
+import type { Doctor } from '~/types/doctor';
+import { handleResponse } from './utils';
 
 export async function getDoctorProfile(): Promise<Doctor> {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Doctor/me`,
-    { credentials: "include" },
+    { credentials: 'include' },
   );
 
   return handleResponse(response);
@@ -13,7 +13,7 @@ export async function getDoctorProfile(): Promise<Doctor> {
 
 export async function getDoctors(): Promise<Doctor[]> {
   const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/Doctor`, {
-    credentials: "include",
+    credentials: 'include',
   });
 
   return handleResponse(response);
@@ -39,11 +39,11 @@ export async function createDoctor(form: {
   gender: number;
 }) {
   const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/Doctor`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
-    credentials: "include",
+    credentials: 'include',
     body: JSON.stringify(form),
   });
 
@@ -57,8 +57,8 @@ export async function assignServiceToDoctor(
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Doctor/${doctorId}/services/${serviceId}`,
     {
-      method: "PUT",
-      credentials: "include",
+      method: 'PUT',
+      credentials: 'include',
     },
   );
 
@@ -72,8 +72,8 @@ export async function deleteAssignedDoctorService(
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Doctor/${doctorId}/services/${serviceId}`,
     {
-      method: "DELETE",
-      credentials: "include",
+      method: 'DELETE',
+      credentials: 'include',
     },
   );
 
@@ -83,7 +83,7 @@ export async function deleteAssignedDoctorService(
 export async function deleteDoctor(id: number) {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Doctor/${id}`,
-    { method: "DELETE", credentials: "include" },
+    { method: 'DELETE', credentials: 'include' },
   );
 
   return handleResponse(response);
@@ -100,9 +100,9 @@ export async function updateDoctor(
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Doctor/${id}`,
     {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(form),
     },
   );

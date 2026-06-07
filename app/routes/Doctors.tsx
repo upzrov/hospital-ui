@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { useOutletContext, useRevalidator } from "react-router";
+import { useState } from 'react';
+import { useOutletContext, useRevalidator } from 'react-router';
 import {
   createDoctor,
   getDoctors,
   getGenders,
   getServices,
   getSpecialties,
-} from "~/api";
-import DoctorCard from "~/components/DoctorCard";
-import "~/styles/routes/Doctors.scss";
-import type { Role } from "~/types/auth";
-import type { Route } from "./+types/Doctors";
+} from '~/api';
+import DoctorCard from '~/components/DoctorCard';
+import '~/styles/routes/Doctors.scss';
+import type { Role } from '~/types/auth';
+import type { Route } from './+types/Doctors';
 
 export async function clientLoader() {
   const [doctors, services, specialties, genders] = await Promise.all([
@@ -28,13 +28,13 @@ export default function Doctors({ loaderData }: Route.ComponentProps) {
   const revalidator = useRevalidator();
 
   const [doctorForm, setDoctorForm] = useState({
-    fullName: "",
-    specialty: "",
-    workStart: "09:00",
-    workEnd: "17:00",
-    email: "",
-    password: "",
-    gender: "",
+    fullName: '',
+    specialty: '',
+    workStart: '09:00',
+    workEnd: '17:00',
+    email: '',
+    password: '',
+    gender: '',
   });
 
   const handleDoctorChange = (
@@ -55,13 +55,13 @@ export default function Doctors({ loaderData }: Route.ComponentProps) {
       gender: Number(doctorForm.gender),
     });
     setDoctorForm({
-      fullName: "",
-      specialty: "",
-      workStart: "09:00",
-      workEnd: "17:00",
-      email: "",
-      password: "",
-      gender: "",
+      fullName: '',
+      specialty: '',
+      workStart: '09:00',
+      workEnd: '17:00',
+      email: '',
+      password: '',
+      gender: '',
     });
     revalidator.revalidate();
   };
@@ -70,7 +70,7 @@ export default function Doctors({ loaderData }: Route.ComponentProps) {
     <div className="doctors-page">
       <h1 className="doctors-page__title">Наші лікарі</h1>
 
-      {user === "Manager" && (
+      {user === 'Manager' && (
         <form className="doctors-page__form" onSubmit={handleCreateDoctor}>
           <h2>Додати лікаря</h2>
           <div className="doctors-page__fields">
@@ -148,7 +148,7 @@ export default function Doctors({ loaderData }: Route.ComponentProps) {
             doctor={doctor}
             specialties={specialties}
             key={doctor.doctorId}
-            isManaged={user === "Manager"}
+            isManaged={user === 'Manager'}
           />
         ))}
       </div>

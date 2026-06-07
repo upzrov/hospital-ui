@@ -1,18 +1,18 @@
-import { useState } from "react";
-import { useNavigate, useOutletContext } from "react-router";
+import { useState } from 'react';
+import { useNavigate, useOutletContext } from 'react-router';
 import {
   createAppointment,
   getDoctor,
   getService,
   getSpecialties,
-} from "~/api";
-import { DoctorInfo } from "~/components/DoctorInfo";
-import { ErrorNotification } from "~/components/ErrorNotification";
-import { SlotPicker } from "~/components/SlotPicker";
-import { useError } from "~/hooks/useError";
-import "~/styles/routes/ServiceDoctor.scss";
-import type { Role } from "~/types/auth";
-import type { Route } from "./+types/ServiceDoctor";
+} from '~/api';
+import { DoctorInfo } from '~/components/DoctorInfo';
+import { ErrorNotification } from '~/components/ErrorNotification';
+import { SlotPicker } from '~/components/SlotPicker';
+import { useError } from '~/hooks/useError';
+import '~/styles/routes/ServiceDoctor.scss';
+import type { Role } from '~/types/auth';
+import type { Route } from './+types/ServiceDoctor';
 
 export async function clientLoader({ params }: Route.LoaderArgs) {
   const serviceId = Number(params.serviceId);
@@ -32,7 +32,7 @@ export default function ServiceDoctor({
   loaderData,
 }: Route.ComponentProps) {
   const [service, doctor, specialties] = loaderData;
-  const [chosenSlot, setChosenSlot] = useState<string>("");
+  const [chosenSlot, setChosenSlot] = useState<string>('');
   const { error, handleError, clearError } = useError();
 
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ export default function ServiceDoctor({
   const doctorId = Number(params.doctorId);
   const serviceId = Number(params.serviceId);
 
-  const canBook = user === "Patient";
+  const canBook = user === 'Patient';
 
   const specialty = specialties.find((sp) => sp.id === service.specialty);
 
@@ -49,12 +49,12 @@ export default function ServiceDoctor({
     e.preventDefault();
 
     if (!canBook) {
-      handleError("Записатися можуть лише пацієнти");
+      handleError('Записатися можуть лише пацієнти');
       return;
     }
 
     if (!chosenSlot) {
-      handleError("Будь ласка, оберіть час!");
+      handleError('Будь ласка, оберіть час!');
       return;
     }
 
@@ -65,7 +65,7 @@ export default function ServiceDoctor({
         startAt: chosenSlot,
       });
 
-      navigate("/profile");
+      navigate('/profile');
     } catch (err) {
       handleError(err);
     }

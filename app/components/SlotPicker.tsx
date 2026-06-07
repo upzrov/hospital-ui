@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { getAvailableSlots } from "~/api";
-import "~/styles/components/SlotPicker.scss";
-import type { AvailableSlot } from "~/types/appointment";
+import { useEffect, useState } from 'react';
+import { getAvailableSlots } from '~/api';
+import '~/styles/components/SlotPicker.scss';
+import type { AvailableSlot } from '~/types/appointment';
 
 interface SlotPickerProps {
   doctorId: number;
@@ -19,7 +19,7 @@ export function SlotPicker({
   const [selectedDate, setSelectedDate] = useState(() => {
     const d = new Date();
     d.setDate(d.getDate() + 1); // Default to tomorrow
-    return d.toISOString().split("T")[0];
+    return d.toISOString().split('T')[0];
   });
 
   const [slots, setSlots] = useState<AvailableSlot[]>([]);
@@ -44,7 +44,7 @@ export function SlotPicker({
         });
         setSlots(availableSlots);
       } catch (error) {
-        console.error("Failed to fetch slots", error);
+        console.error('Failed to fetch slots', error);
         setSlots([]);
       } finally {
         setLoading(false);
@@ -57,7 +57,7 @@ export function SlotPicker({
   function formatSlot(startAt: string, endAt: string) {
     const start = new Date(startAt);
     const end = new Date(endAt);
-    const pad = (n: number) => n.toString().padStart(2, "0");
+    const pad = (n: number) => n.toString().padStart(2, '0');
 
     const startTime = `${pad(start.getUTCHours())}:${pad(start.getUTCMinutes())}`;
     const endTime = `${pad(end.getUTCHours())}:${pad(end.getUTCMinutes())}`;
@@ -73,7 +73,7 @@ export function SlotPicker({
   const handleDateChange = (dateIso: string) => {
     setSelectedDate(dateIso);
     setSelectedSlot(null);
-    onSelect("");
+    onSelect('');
   };
 
   const morningSlots = slots.filter((slot) => {
@@ -122,17 +122,17 @@ export function SlotPicker({
     <div className="slot-picker">
       <div className="slot-picker__dates-row">
         {days.map((day) => {
-          const iso = day.toISOString().split("T")[0];
+          const iso = day.toISOString().split('T')[0];
           const isSelected = iso === selectedDate;
-          const dayName = day.toLocaleDateString("uk-UA", { weekday: "short" });
+          const dayName = day.toLocaleDateString('uk-UA', { weekday: 'short' });
           const dayNum = day.getDate();
-          const monthName = day.toLocaleDateString("uk-UA", { month: "short" });
+          const monthName = day.toLocaleDateString('uk-UA', { month: 'short' });
 
           return (
             <button
               key={iso}
               type="button"
-              className={`date-chip ${isSelected ? "selected" : ""}`}
+              className={`date-chip ${isSelected ? 'selected' : ''}`}
               onClick={() => handleDateChange(iso)}
               disabled={disabled}
             >
@@ -150,9 +150,9 @@ export function SlotPicker({
         <div className="slot-picker__slots">
           {slots.length > 0 ? (
             <>
-              {renderSlotSection("Ранок", morningSlots)}
-              {renderSlotSection("День", afternoonSlots)}
-              {renderSlotSection("Вечір", eveningSlots)}
+              {renderSlotSection('Ранок', morningSlots)}
+              {renderSlotSection('День', afternoonSlots)}
+              {renderSlotSection('Вечір', eveningSlots)}
             </>
           ) : (
             <p className="slot-picker__empty">

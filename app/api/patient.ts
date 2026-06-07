@@ -1,10 +1,10 @@
-import type { Patient } from "~/types/patient";
-import { handleResponse } from "./utils";
+import type { Patient } from '~/types/patient';
+import { handleResponse } from './utils';
 
 export async function getPatientProfile(): Promise<Patient> {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Patient/me`,
-    { credentials: "include" },
+    { credentials: 'include' },
   );
 
   return handleResponse(response);
@@ -12,7 +12,7 @@ export async function getPatientProfile(): Promise<Patient> {
 
 export async function getPatients(): Promise<Patient[]> {
   const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/Patient`, {
-    credentials: "include",
+    credentials: 'include',
   });
 
   return handleResponse(response);
@@ -22,8 +22,8 @@ export async function deletePatient(id: number) {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Patient/${id}`,
     {
-      method: "DELETE",
-      credentials: "include",
+      method: 'DELETE',
+      credentials: 'include',
     },
   );
 
@@ -41,9 +41,9 @@ export async function updatePatient(
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Patient/${id}`,
     {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(form),
     },
   );

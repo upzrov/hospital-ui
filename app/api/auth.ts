@@ -1,15 +1,15 @@
-import type { Role } from "~/types/auth";
-import { handleResponse } from "./utils";
+import type { Role } from '~/types/auth';
+import { handleResponse } from './utils';
 
 export async function signIn(form: { email: string; password: string }) {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Auth/sign-in`,
     {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      credentials: "include",
+      credentials: 'include',
       body: JSON.stringify(form),
     },
   );
@@ -28,11 +28,11 @@ export async function signUp(form: {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Auth/sign-up`,
     {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      credentials: "include",
+      credentials: 'include',
       body: JSON.stringify(form),
     },
   );
@@ -43,7 +43,7 @@ export async function signUp(form: {
 export async function signOut() {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Auth/sign-out`,
-    { method: "POST", credentials: "include" },
+    { method: 'POST', credentials: 'include' },
   );
 
   return handleResponse(response);
@@ -52,7 +52,7 @@ export async function signOut() {
 export async function getRole(): Promise<Role> {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Auth/role`,
-    { credentials: "include" },
+    { credentials: 'include' },
   );
 
   return handleResponse(response);

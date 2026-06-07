@@ -1,11 +1,13 @@
-@import "../variables";
+@import '../variables';
 
 .service-card {
   background: $color-white;
   border: 1px solid $color-border;
   border-radius: $radius-lg;
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   box-shadow: $shadow-md;
   display: flex;
   flex-direction: column;
@@ -106,7 +108,7 @@
       border: 2px solid $color-white;
       object-fit: cover;
       margin-left: -12px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
       &:first-child {
         margin-left: 0;

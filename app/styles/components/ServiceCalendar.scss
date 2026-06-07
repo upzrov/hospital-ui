@@ -1,4 +1,4 @@
-@import "../variables";
+@import '../variables';
 
 /* Допоміжний клас для приховування стандартного кружечка інпута */
 .visually-hidden {
@@ -15,7 +15,10 @@
 /* Нові стилі для календаря */
 .service-calendar {
   display: grid;
-  grid-auto-columns: minmax(0, 1fr); /* Ділить простір порівну між усіма днями */
+  grid-auto-columns: minmax(
+    0,
+    1fr
+  ); /* Ділить простір порівну між усіма днями */
   grid-auto-flow: column;
   gap: $spacing-md;
   padding: 8px 0 20px 0;

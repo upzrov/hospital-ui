@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { useOutletContext, useRevalidator } from "react-router";
+import { useState } from 'react';
+import { useOutletContext, useRevalidator } from 'react-router';
 import {
   createService,
   deleteService,
   getDoctors,
   getServices,
   getSpecialties,
-} from "~/api";
-import { ServiceCard } from "~/components/ServiceCard";
-import "~/styles/routes/Services.scss";
-import type { Role } from "~/types/auth";
-import type { Route } from "./+types/Services";
+} from '~/api';
+import { ServiceCard } from '~/components/ServiceCard';
+import '~/styles/routes/Services.scss';
+import type { Role } from '~/types/auth';
+import type { Route } from './+types/Services';
 
 export async function loader() {
   return Promise.all([getDoctors(), getServices(), getSpecialties()]);
@@ -21,14 +21,14 @@ export default function Services({ loaderData }: Route.ComponentProps) {
   const { user } = useOutletContext<{ user: Role | null }>();
   const revalidator = useRevalidator();
 
-  const canManage = user === "Manager";
+  const canManage = user === 'Manager';
 
   const [form, setForm] = useState({
-    name: "",
-    description: "",
-    price: "",
-    durationMinutes: "",
-    specialty: "",
+    name: '',
+    description: '',
+    price: '',
+    durationMinutes: '',
+    specialty: '',
   });
 
   const handleChange = (
@@ -51,18 +51,18 @@ export default function Services({ loaderData }: Route.ComponentProps) {
     });
 
     setForm({
-      name: "",
-      description: "",
-      price: "",
-      durationMinutes: "",
-      specialty: "",
+      name: '',
+      description: '',
+      price: '',
+      durationMinutes: '',
+      specialty: '',
     });
 
     revalidator.revalidate();
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm("Видалити цю послугу?")) return;
+    if (!confirm('Видалити цю послугу?')) return;
 
     await deleteService(id);
     revalidator.revalidate();
