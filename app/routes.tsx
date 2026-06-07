@@ -7,20 +7,22 @@ import {
 
 export default [
   layout('routes/layout.tsx', [
-    index('routes/Home.tsx'),
+    index('routes/home.tsx'),
 
-    route('signin', 'routes/Signin.tsx'),
-    route('signup', 'routes/Signup.tsx'),
+    route('signin', 'routes/sign-in.tsx'),
+    route('signup', 'routes/sign-up.tsx'),
 
-    route('doctors', 'routes/Doctors.tsx'),
-    route('doctors/:id', 'routes/Doctor.tsx'),
-    route('doctors/:doctorId/:serviceId', 'routes/DoctorService.tsx'),
-    route('services', 'routes/Services.tsx'),
-    route('services/:serviceId/:doctorId', 'routes/ServiceDoctor.tsx'),
-    route('services/:id', 'routes/Service.tsx'),
-    route('about', 'routes/About.tsx'),
+    route('doctors', 'routes/doctors.tsx'),
+    route('doctors/:id', 'routes/doctor.tsx'),
+    route('doctors/:doctorId/:serviceId', 'routes/doctor-service.tsx'),
+    route('services', 'routes/services.tsx'),
+    route('services/:serviceId/:doctorId', 'routes/service-doctor.tsx'),
+    route('services/:id', 'routes/service.tsx'),
+    route('about', 'routes/about.tsx'),
 
-    route('profile', 'routes/Profile.tsx'),
-    route('contact', 'routes/Contact.tsx'),
+    route('profile', 'routes/profile.tsx'),
+    route('patients', 'routes/patients.tsx'),
+    route('managers', 'routes/managers.tsx'),
+    route('contact', 'routes/contact.tsx'),
   ]),
 ] satisfies RouteConfig;

@@ -8,9 +8,9 @@ import {
 } from '~/api';
 import { DoctorInfo } from '~/components/DoctorInfo';
 import { SlotPicker } from '~/components/SlotPicker';
-import '~/styles/routes/DoctorService.scss';
+import '~/styles/routes/doctor-service.scss';
 import type { Role } from '~/types/auth';
-import type { Route } from './+types/DoctorService';
+import type { Route } from './+types/doctor-service';
 
 export async function clientLoader({ params }: Route.LoaderArgs) {
   const doctorId = Number(params.doctorId);

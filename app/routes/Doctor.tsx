@@ -9,9 +9,9 @@ import {
 } from '~/api';
 import { ErrorNotification } from '~/components/ErrorNotification';
 import { useError } from '~/hooks/useError';
-import '~/styles/routes/Doctor.scss';
+import '~/styles/routes/doctor.scss';
 import type { Role } from '~/types/auth';
-import type { Route } from './+types/Doctor';
+import type { Route } from './+types/doctor';
 
 export async function loader({ params }: Route.ComponentProps) {
   return Promise.all([

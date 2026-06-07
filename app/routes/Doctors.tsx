@@ -8,9 +8,9 @@ import {
   getSpecialties,
 } from '~/api';
 import DoctorCard from '~/components/DoctorCard';
-import '~/styles/routes/Doctors.scss';
+import '~/styles/routes/doctors.scss';
 import type { Role } from '~/types/auth';
-import type { Route } from './+types/Doctors';
+import type { Route } from './+types/doctors';
 
 export async function clientLoader() {
   const [doctors, services, specialties, genders] = await Promise.all([

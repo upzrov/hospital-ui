@@ -10,9 +10,9 @@ import { DoctorInfo } from '~/components/DoctorInfo';
 import { ErrorNotification } from '~/components/ErrorNotification';
 import { SlotPicker } from '~/components/SlotPicker';
 import { useError } from '~/hooks/useError';
-import '~/styles/routes/ServiceDoctor.scss';
+import '~/styles/routes/service-doctor.scss';
 import type { Role } from '~/types/auth';
-import type { Route } from './+types/ServiceDoctor';
+import type { Route } from './+types/service-doctor';
 
 export async function clientLoader({ params }: Route.LoaderArgs) {
   const serviceId = Number(params.serviceId);

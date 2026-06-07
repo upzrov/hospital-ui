@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router';
 import { signUp } from '~/api';
 import { ErrorNotification } from '~/components/ErrorNotification';
 import { useError } from '~/hooks/useError';
-import '~/styles/routes/Signup.scss';
+import '~/styles/routes/sign-up.scss';
 
 export const Signup = () => {
   const [form, setForm] = useState({

@@ -141,6 +141,10 @@
     gap: 8px;
     flex-shrink: 0;
 
+    &--mt {
+      margin-top: 12px;
+    }
+
     button {
       background: $color-primary-lighter;
       color: $color-primary;

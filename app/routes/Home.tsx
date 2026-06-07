@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router';
 import { getDoctors } from '~/api';
 import DoctorCard from '~/components/DoctorCard';
-import '~/styles/routes/Home.scss';
-import type { Route } from './+types/Home';
+import '~/styles/routes/home.scss';
+import type { Route } from './+types/home';
 
 export const loader = getDoctors;
 

@@ -18,6 +18,15 @@ export async function getPatients(): Promise<Patient[]> {
   return handleResponse(response);
 }
 
+export async function getPatientById(id: number): Promise<Patient> {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/Patient/${id}`,
+    { credentials: 'include' },
+  );
+
+  return handleResponse(response);
+}
+
 export async function deletePatient(id: number) {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/Patient/${id}`,

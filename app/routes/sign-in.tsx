@@ -1,4 +1,4 @@
-import '~/styles/routes/Signin.scss';
+import '~/styles/routes/sign-in.scss';
 import '~/styles/text.scss';
 
 import { useState } from 'react';

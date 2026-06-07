@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useOutletContext, useRevalidator } from 'react-router';
+import { Form, useOutletContext, useRevalidator, useSubmit } from 'react-router';
 import {
   createService,
   deleteService,
@@ -8,18 +8,28 @@ import {
   getSpecialties,
 } from '~/api';
 import { ServiceCard } from '~/components/ServiceCard';
-import '~/styles/routes/Services.scss';
+import '~/styles/routes/services.scss';
 import type { Role } from '~/types/auth';
-import type { Route } from './+types/Services';
+import type { Route } from './+types/services';
 
-export async function loader() {
-  return Promise.all([getDoctors(), getServices(), getSpecialties()]);
+export async function loader({ request }: Route.LoaderArgs) {
+  const url = new URL(request.url);
+  const search = url.searchParams.get('search') || '';
+  const specialty = url.searchParams.get('specialty') || '';
+  const orderBy = url.searchParams.get('orderBy') || '';
+
+  return Promise.all([
+    getDoctors(),
+    getServices({ search, specialty, orderBy }),
+    getSpecialties(),
+  ]);
 }
 
 export default function Services({ loaderData }: Route.ComponentProps) {
   const [doctors, services, specialties] = loaderData;
   const { user } = useOutletContext<{ user: Role | null }>();
   const revalidator = useRevalidator();
+  const submit = useSubmit();
 
   const canManage = user === 'Manager';
 
@@ -71,6 +81,36 @@ export default function Services({ loaderData }: Route.ComponentProps) {
   return (
     <div className="services-page">
       <h1 className="services-page__title">Наші послуги</h1>
+
+      <Form
+        className="services-page__filters"
+        method="get"
+        onChange={(e) => submit(e.currentTarget)}
+      >
+        <input
+          name="search"
+          type="search"
+          placeholder="Пошук послуги..."
+          defaultValue=""
+        />
+
+        <select name="specialty" defaultValue="">
+          <option value="">Усі спеціальності</option>
+          {specialties.map((s) => (
+            <option key={s.id} value={s.id}>
+              {s.name}
+            </option>
+          ))}
+        </select>
+
+        <select name="orderBy" defaultValue="">
+          <option value="">Сортувати за</option>
+          <option value="name_asc">Назва (А-Я)</option>
+          <option value="name_desc">Назва (Я-А)</option>
+          <option value="price_asc">Найдешевші</option>
+          <option value="price_desc">Найдорожчі</option>
+        </select>
+      </Form>
 
       {canManage && (
         <form className="services-page__form" onSubmit={handleCreate}>

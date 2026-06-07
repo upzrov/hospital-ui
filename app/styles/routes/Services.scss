@@ -16,6 +16,34 @@
     text-align: center;
   }
 
+  &__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    background: $color-white;
+    padding: $spacing-md;
+    border-radius: $radius-md;
+    border: 1px solid $color-border;
+    box-shadow: $shadow-sm;
+
+    input,
+    select {
+      flex: 1;
+      min-width: 200px;
+      padding: $radius-md;
+      border: 1px solid $color-border;
+      border-radius: $radius-sm;
+      font-size: 14px;
+      background: $color-bg-page;
+
+      &:focus {
+        outline: none;
+        border-color: $color-primary;
+        background: $color-white;
+      }
+    }
+  }
+
   &__form {
     align-self: center;
     width: 100%;

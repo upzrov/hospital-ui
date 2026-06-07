@@ -1,4 +1,4 @@
-import '~/styles/routes/About.scss';
+import '~/styles/routes/about.scss';
 
 export default function About() {
   return (

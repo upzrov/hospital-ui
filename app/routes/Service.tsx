@@ -1,7 +1,7 @@
 import { getDoctors, getService, getSpecialties } from '~/api';
 import DoctorCard from '~/components/DoctorCard';
-import '~/styles/routes/Service.scss';
-import type { Route } from './+types/Service';
+import '~/styles/routes/service.scss';
+import type { Route } from './+types/service';
 
 export async function clientLoader({ params }: Route.ComponentProps) {
   return Promise.all([

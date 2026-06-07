@@ -1,9 +1,9 @@
+import { Link } from 'react-router';
 import {
   getAllAppointments,
   getDoctorAppointments,
   getDoctorProfile,
   getDoctors,
-  getManagers,
   getPatientAppointments,
   getPatientProfile,
   getRole,
@@ -11,11 +11,10 @@ import {
   getSpecialties,
 } from '~/api';
 import { AppointmentsList } from '~/components/AppointmentsList';
-import { ManagerPanel } from '~/components/ManagerPanel';
 import { Signout } from '~/components/Signout';
-import '~/styles/routes/Profile.scss';
-import type { Appointment, Manager } from '~/types';
-import type { Route } from './+types/Profile';
+import '~/styles/routes/profile.scss';
+import type { Appointment } from '~/types';
+import type { Route } from './+types/profile';
 
 export async function clientLoader() {
   const user = await getRole();
@@ -29,7 +28,6 @@ export async function clientLoader() {
   let patientProfile = null;
   let doctorProfile = null;
   let appointments = Array<Appointment>();
-  let managers = Array<Manager>();
 
   if (user === 'Patient') {
     patientProfile = await getPatientProfile();
@@ -41,7 +39,6 @@ export async function clientLoader() {
     appointments = await getAllAppointments();
   } else if (user === 'Administrator') {
     appointments = await getAllAppointments();
-    managers = await getManagers();
   }
 
   return {
@@ -52,7 +49,6 @@ export async function clientLoader() {
     doctors,
     services,
     specialties,
-    managers,
   };
 }
 
@@ -69,7 +65,6 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
     doctors,
     services,
     specialties,
-    managers,
   } = loaderData;
 
   return (
@@ -127,6 +122,11 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
               <strong>Роль:</strong> Менеджер
             </div>
             <div>Управління лікарями та послугами</div>
+            <div className="profile-panel__actions profile-panel__actions--mt">
+              <Link to="/patients">
+                <button type="button">Управління пацієнтами</button>
+              </Link>
+            </div>
           </div>
         )}
 
@@ -136,6 +136,14 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
               <strong>Роль:</strong> Адміністратор
             </div>
             <div>Управління менеджерами та перегляд усіх записів</div>
+            <div className="profile-panel__actions profile-panel__actions--mt">
+              <Link to="/patients">
+                <button type="button">Управління пацієнтами</button>
+              </Link>
+              <Link to="/managers">
+                <button type="button">Управління менеджерами</button>
+              </Link>
+            </div>
           </div>
         )}
       </section>
@@ -147,8 +155,6 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
         services={services}
         specialties={specialties}
       />
-
-      {user === 'Administrator' && <ManagerPanel managers={managers} />}
     </div>
   );
 }
