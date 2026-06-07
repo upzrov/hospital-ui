@@ -19,7 +19,7 @@ export async function signIn(form: { email: string; password: string }) {
 
 export async function signUp(form: {
   name: string;
-  fullName: string;
+  lastName: string;
   dateOfBirth: string;
   phoneNumber: string;
   password: string;
