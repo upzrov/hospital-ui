@@ -8,7 +8,7 @@ import '~/styles/routes/sign-up.scss';
 export const Signup = () => {
   const [form, setForm] = useState({
     name: '',
-    fullName: '',
+    lastName: '',
     dateOfBirth: '',
     phoneNumber: '',
     password: '',
@@ -66,7 +66,7 @@ export const Signup = () => {
                 type="text"
                 name="fullName"
                 placeholder="Іванов"
-                value={form.fullName}
+                value={form.lastName}
                 onChange={handleChange}
                 required
               />
