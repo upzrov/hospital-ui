@@ -43,7 +43,7 @@ export default function Doctors({ loaderData }: Route.ComponentProps) {
     setDoctorForm({ ...doctorForm, [e.target.name]: e.target.value });
   };
 
-  const handleCreateDoctor = async (e: React.FormEvent) => {
+  const handleCreateDoctor = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     await createDoctor({
       fullName: doctorForm.fullName,

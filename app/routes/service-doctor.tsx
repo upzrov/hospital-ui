@@ -45,7 +45,7 @@ export default function ServiceDoctor({
 
   const specialty = specialties.find((sp) => sp.id === service.specialty);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!canBook) {

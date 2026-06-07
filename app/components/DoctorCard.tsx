@@ -6,6 +6,8 @@ import { useNavigate, useOutletContext, useRevalidator } from 'react-router';
 import { deleteDoctor, updateDoctor } from '~/api';
 import { useError } from '~/hooks/useError';
 import { ErrorNotification } from './ErrorNotification';
+import { Modal } from '~/components/Modal';
+import { useModal } from '~/hooks/useModal';
 
 interface Props {
   doctor: Doctor;
@@ -28,9 +30,17 @@ export const DoctorCard: React.FC<Props> = ({
   const revalidator = useRevalidator();
   const { user } = useOutletContext<{ user: Role | null }>();
   const { error, handleError, clearError } = useError();
+  const { modalConfig, showModal, handleClose } = useModal();
 
   const handleDelete = async () => {
-    if (!confirm(`Видалити лікаря ${doctor.fullName}?`)) return;
+    const confirmed = await showModal({
+      title: 'Підтвердження',
+      message: `Видалити лікаря ${doctor.fullName}?`,
+      type: 'confirm',
+    });
+
+    if (!confirmed) return;
+
     try {
       await deleteDoctor(doctor.doctorId);
       revalidator.revalidate();
@@ -40,22 +50,29 @@ export const DoctorCard: React.FC<Props> = ({
   };
 
   const handleUpdateSchedule = async () => {
-    const workStart = prompt(
-      'Початок робочого дня (HH:MM)',
-      doctor.workStart?.slice(0, 5) ?? '09:00',
-    );
-    const workEnd = prompt(
-      'Кінець робочого дня (HH:MM)',
-      doctor.workEnd?.slice(0, 5) ?? '17:00',
-    );
+    const workStart = await showModal({
+      title: 'Графік',
+      message: 'Початок робочого дня (HH:MM)',
+      type: 'prompt',
+      defaultValue: doctor.workStart?.slice(0, 5) ?? '09:00',
+    });
 
-    if (!workStart || !workEnd) return;
+    if (workStart === null) return;
+
+    const workEnd = await showModal({
+      title: 'Графік',
+      message: 'Кінець робочого дня (HH:MM)',
+      type: 'prompt',
+      defaultValue: doctor.workEnd?.slice(0, 5) ?? '17:00',
+    });
+
+    if (workEnd === null) return;
 
     try {
       await updateDoctor(doctor.doctorId, {
         fullName: doctor.fullName,
-        workStart,
-        workEnd,
+        workStart: String(workStart),
+        workEnd: String(workEnd),
       });
 
       revalidator.revalidate();
@@ -66,6 +83,16 @@ export const DoctorCard: React.FC<Props> = ({
 
   return (
     <div className="doctor-card">
+      {modalConfig && (
+        <Modal
+          isOpen={modalConfig.isOpen}
+          title={modalConfig.title}
+          message={modalConfig.message}
+          type={modalConfig.type}
+          defaultValue={modalConfig.defaultValue}
+          onClose={handleClose}
+        />
+      )}
       <ErrorNotification message={error} onClose={clearError} />
       <div className="doctor-card__image">
         <img src={doctor.photoUrl} alt="Doctor" />

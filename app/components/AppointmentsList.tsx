@@ -7,6 +7,8 @@ import type { Role } from '~/types/auth';
 import type { Service } from '~/types/service';
 import type { Specialties } from '~/types/lookup';
 import { useRevalidator } from 'react-router';
+import { Modal } from '~/components/Modal';
+import { useModal } from '~/hooks/useModal';
 
 interface Props {
   user: Role | null;
@@ -39,6 +41,7 @@ export function AppointmentsList({
   specialties,
 }: Props) {
   const revalidator = useRevalidator();
+  const { modalConfig, showModal, handleClose } = useModal();
 
   const canDelete = user === 'Patient' || user === 'Manager';
 
@@ -50,7 +53,13 @@ export function AppointmentsList({
         : 'Мої записи';
 
   const handleDelete = async (id: number) => {
-    if (!confirm('Скасувати цей запис?')) return;
+    const confirmed = await showModal({
+      title: 'Підтвердження',
+      message: 'Скасувати цей запис?',
+      type: 'confirm',
+    });
+
+    if (!confirmed) return;
 
     try {
       await deleteAppointment(id);
@@ -77,7 +86,18 @@ export function AppointmentsList({
   const sortedDates = Object.keys(groupedAppointments).sort();
 
   return (
-    <section className="appointments-section">
+    <>
+      {modalConfig && (
+        <Modal
+          isOpen={modalConfig.isOpen}
+          title={modalConfig.title}
+          message={modalConfig.message}
+          type={modalConfig.type}
+          defaultValue={modalConfig.defaultValue}
+          onClose={handleClose}
+        />
+      )}
+      <section className="appointments-section">
       <div className="appointments-section__header">
         <h2>{pageTitle}</h2>
         <span className="appointments-count">
@@ -181,5 +201,6 @@ export function AppointmentsList({
         </div>
       )}
     </section>
+    </>
   );
 }

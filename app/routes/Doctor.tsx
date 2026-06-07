@@ -12,6 +12,8 @@ import { useError } from '~/hooks/useError';
 import '~/styles/routes/doctor.scss';
 import type { Role } from '~/types/auth';
 import type { Route } from './+types/doctor';
+import { Modal } from '~/components/Modal';
+import { useModal } from '~/hooks/useModal';
 
 export async function loader({ params }: Route.ComponentProps) {
   return Promise.all([
@@ -27,6 +29,7 @@ export default function Doctor({ loaderData }: Route.ComponentProps) {
   const revalidator = useRevalidator();
   const { user } = useOutletContext<{ user: Role | null }>();
   const { error, handleError, clearError } = useError();
+  const { modalConfig, showModal, handleClose } = useModal();
 
   const [selectedServiceId, setSelectedServiceId] = useState('');
 
@@ -50,7 +53,14 @@ export default function Doctor({ loaderData }: Route.ComponentProps) {
   };
 
   const handleRemove = async (serviceId: number) => {
-    if (!confirm('Видалити цю послугу у лікаря?')) return;
+    const confirmed = await showModal({
+      title: 'Підтвердження',
+      message: 'Видалити цю послугу у лікаря?',
+      type: 'confirm',
+    });
+
+    if (!confirmed) return;
+
     try {
       await deleteAssignedDoctorService(doctor.doctorId, serviceId);
       revalidator.revalidate();
@@ -72,6 +82,16 @@ export default function Doctor({ loaderData }: Route.ComponentProps) {
 
   return (
     <div className="doctor-page">
+      {modalConfig && (
+        <Modal
+          isOpen={modalConfig.isOpen}
+          title={modalConfig.title}
+          message={modalConfig.message}
+          type={modalConfig.type}
+          defaultValue={modalConfig.defaultValue}
+          onClose={handleClose}
+        />
+      )}
       <ErrorNotification message={error} onClose={clearError} />
 
       <div className="doctor-page-card">

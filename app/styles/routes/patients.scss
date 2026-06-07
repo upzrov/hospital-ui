@@ -1,5 +1,5 @@
-@import '../variables';
-@import './Profile';
+@use '../variables' as *;
+@use './profile';
 
 .patients-page {
   max-width: 900px;

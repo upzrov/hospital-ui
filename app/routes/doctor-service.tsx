@@ -8,6 +8,8 @@ import {
 } from '~/api';
 import { DoctorInfo } from '~/components/DoctorInfo';
 import { SlotPicker } from '~/components/SlotPicker';
+import { Modal } from '~/components/Modal';
+import { useModal } from '~/hooks/useModal';
 import '~/styles/routes/doctor-service.scss';
 import type { Role } from '~/types/auth';
 import type { Route } from './+types/doctor-service';
@@ -34,6 +36,7 @@ export default function DoctorService({
 
   const navigate = useNavigate();
   const { user } = useOutletContext<{ user: Role | null }>();
+  const { modalConfig, showModal, handleClose } = useModal();
 
   const doctorId = Number(params.doctorId);
   const serviceId = Number(params.serviceId);
@@ -42,15 +45,26 @@ export default function DoctorService({
 
   const specialty = specialties.find((sp) => sp.id === doctor.specialty);
 
-  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!canBook) {
-      alert('Записатися можуть лише пацієнти');
+      await showModal({
+        title: 'Помилка',
+        message: 'Записатися можуть лише пацієнти',
+        type: 'alert'
+      });
       return;
     }
 
-    if (!chosenSlot) return alert('Будь ласка, оберіть час!');
+    if (!chosenSlot) {
+      await showModal({
+        title: 'Увага',
+        message: 'Будь ласка, оберіть час!',
+        type: 'alert'
+      });
+      return;
+    }
 
     await createAppointment({
       doctorId,
@@ -63,6 +77,15 @@ export default function DoctorService({
 
   return (
     <div className="service-detail-card">
+      {modalConfig && (
+        <Modal 
+          isOpen={modalConfig.isOpen}
+          title={modalConfig.title}
+          message={modalConfig.message}
+          type={modalConfig.type}
+          onClose={handleClose}
+        />
+      )}
       <DoctorInfo
         fullName={doctor.fullName}
         photoUrl={doctor.photoUrl}

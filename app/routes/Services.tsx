@@ -8,6 +8,8 @@ import {
   getSpecialties,
 } from '~/api';
 import { ServiceCard } from '~/components/ServiceCard';
+import { Modal } from '~/components/Modal';
+import { useModal } from '~/hooks/useModal';
 import '~/styles/routes/services.scss';
 import type { Role } from '~/types/auth';
 import type { Route } from './+types/services';
@@ -30,6 +32,7 @@ export default function Services({ loaderData }: Route.ComponentProps) {
   const { user } = useOutletContext<{ user: Role | null }>();
   const revalidator = useRevalidator();
   const submit = useSubmit();
+  const { modalConfig, showModal, handleClose } = useModal();
 
   const canManage = user === 'Manager';
 
@@ -72,7 +75,13 @@ export default function Services({ loaderData }: Route.ComponentProps) {
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm('Видалити цю послугу?')) return;
+    const confirmed = await showModal({
+      title: 'Підтвердження',
+      message: 'Видалити цю послугу?',
+      type: 'confirm'
+    });
+
+    if (!confirmed) return;
 
     await deleteService(id);
     revalidator.revalidate();
@@ -80,6 +89,15 @@ export default function Services({ loaderData }: Route.ComponentProps) {
 
   return (
     <div className="services-page">
+      {modalConfig && (
+        <Modal 
+          isOpen={modalConfig.isOpen}
+          title={modalConfig.title}
+          message={modalConfig.message}
+          type={modalConfig.type}
+          onClose={handleClose}
+        />
+      )}
       <h1 className="services-page__title">Наші послуги</h1>
 
       <Form

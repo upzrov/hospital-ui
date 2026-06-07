@@ -1,4 +1,4 @@
-@import '../variables';
+@use '../variables' as *;
 
 .doctors-page {
   max-width: 1200px;

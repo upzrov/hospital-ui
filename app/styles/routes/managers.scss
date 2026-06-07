@@ -1,5 +1,5 @@
-@import '../variables';
-@import './profile';
+@use '../variables' as *;
+@use './profile';
 
 .managers-page {
   max-width: 900px;

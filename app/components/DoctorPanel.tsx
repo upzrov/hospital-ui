@@ -10,6 +10,8 @@ import { ErrorNotification } from '~/components/ErrorNotification';
 import { useError } from '~/hooks/useError';
 import type { Gender, Service, Specialties } from '~/types';
 import type { Doctor } from '~/types/doctor';
+import { Modal } from '~/components/Modal';
+import { useModal } from '~/hooks/useModal';
 
 interface Props {
   doctors: Doctor[];
@@ -39,6 +41,7 @@ export function DoctorPanel({
   const [assignDoctorId, setAssignDoctorId] = useState('');
   const [assignServiceId, setAssignServiceId] = useState('');
   const { error, handleError, clearError } = useError();
+  const { modalConfig, showModal, handleClose } = useModal();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -68,7 +71,13 @@ export function DoctorPanel({
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm('Видалити цього лікаря?')) return;
+    const confirmed = await showModal({
+      title: 'Підтвердження',
+      message: 'Видалити цього лікаря?',
+      type: 'confirm',
+    });
+
+    if (!confirmed) return;
 
     try {
       await deleteDoctor(id);
@@ -97,22 +106,29 @@ export function DoctorPanel({
   };
 
   const handleUpdateSchedule = async (doctor: Doctor) => {
-    const workStart = prompt(
-      'Початок робочого дня (HH:MM)',
-      doctor.workStart?.slice(0, 5) ?? '09:00',
-    );
-    const workEnd = prompt(
-      'Кінець робочого дня (HH:MM)',
-      doctor.workEnd?.slice(0, 5) ?? '17:00',
-    );
+    const workStart = await showModal({
+      title: 'Графік',
+      message: 'Початок робочого дня (HH:MM)',
+      type: 'prompt',
+      defaultValue: doctor.workStart?.slice(0, 5) ?? '09:00',
+    });
 
-    if (!workStart || !workEnd) return;
+    if (workStart === null) return;
+
+    const workEnd = await showModal({
+      title: 'Графік',
+      message: 'Кінець робочого дня (HH:MM)',
+      type: 'prompt',
+      defaultValue: doctor.workEnd?.slice(0, 5) ?? '17:00',
+    });
+
+    if (workEnd === null) return;
 
     try {
       await updateDoctor(doctor.doctorId, {
         fullName: doctor.fullName,
-        workStart,
-        workEnd,
+        workStart: String(workStart),
+        workEnd: String(workEnd),
       });
 
       revalidator.revalidate();
@@ -134,6 +150,16 @@ export function DoctorPanel({
 
   return (
     <section className="profile-panel">
+      {modalConfig && (
+        <Modal
+          isOpen={modalConfig.isOpen}
+          title={modalConfig.title}
+          message={modalConfig.message}
+          type={modalConfig.type}
+          defaultValue={modalConfig.defaultValue}
+          onClose={handleClose}
+        />
+      )}
       <ErrorNotification message={error} onClose={clearError} />
       <h2>Управління лікарями</h2>
 

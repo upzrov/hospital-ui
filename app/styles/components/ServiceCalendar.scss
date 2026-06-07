@@ -1,4 +1,4 @@
-@import '../variables';
+@use '../variables' as *;
 
 /* Допоміжний клас для приховування стандартного кружечка інпута */
 .visually-hidden {

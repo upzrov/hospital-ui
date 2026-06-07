@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useRevalidator } from 'react-router';
 import { deletePatient, getPatients, getRole, updatePatient } from '~/api';
 import '~/styles/routes/patients.scss';
 import type { Patient } from '~/types/patient';
 import type { Route } from './+types/patients';
+import { Modal } from '~/components/Modal';
+import { useModal } from '~/hooks/useModal';
 
 export async function clientLoader() {
   const user = await getRole();
@@ -18,6 +20,8 @@ export async function clientLoader() {
 export default function Patients({ loaderData }: Route.ComponentProps) {
   const { patients } = loaderData;
   const revalidator = useRevalidator();
+  const scrollRef = useRef<HTMLHeadingElement>(null);
+  const { modalConfig, showModal, handleClose } = useModal();
   const [editingPatient, setEditingPatient] = useState<Patient | null>(null);
   const [form, setForm] = useState({
     fullName: '',
@@ -32,6 +36,10 @@ export default function Patients({ loaderData }: Route.ComponentProps) {
       dateOfBirth: patient.dateOfBirth.split('T')[0],
       phoneNumber: patient.phoneNumber || '',
     });
+
+    setTimeout(() => {
+      scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 0);
   };
 
   const handleCancel = () => {
@@ -39,13 +47,19 @@ export default function Patients({ loaderData }: Route.ComponentProps) {
   };
 
   const handleDelete = async (id: number) => {
-    if (confirm('Ви впевнені, що хочете видалити цього пацієнта?')) {
+    const confirmed = await showModal({
+      title: 'Підтвердження',
+      message: 'Ви впевнені, що хочете видалити цього пацієнта?',
+      type: 'confirm',
+    });
+
+    if (confirmed) {
       await deletePatient(id);
       revalidator.revalidate();
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
     if (!editingPatient) return;
 
@@ -61,8 +75,18 @@ export default function Patients({ loaderData }: Route.ComponentProps) {
 
   return (
     <div className="patients-page">
+      {modalConfig && (
+        <Modal
+          isOpen={modalConfig.isOpen}
+          title={modalConfig.title}
+          message={modalConfig.message}
+          type={modalConfig.type}
+          defaultValue={modalConfig.defaultValue}
+          onClose={handleClose}
+        />
+      )}
       <div className="patients-page__header">
-        <h1>Управління пацієнтами</h1>
+        <h1 ref={scrollRef}>Управління пацієнтами</h1>
       </div>
 
       {editingPatient && (
@@ -94,11 +118,7 @@ export default function Patients({ loaderData }: Route.ComponentProps) {
             </div>
             <div className="profile-panel__actions">
               <button type="submit">Зберегти</button>
-              <button
-                type="button"
-                className="danger"
-                onClick={handleCancel}
-              >
+              <button type="button" className="danger" onClick={handleCancel}>
                 Скасувати
               </button>
             </div>
@@ -117,9 +137,12 @@ export default function Patients({ loaderData }: Route.ComponentProps) {
                 <div>
                   <strong>{patient.fullName}</strong>
                   <div>
-                    Дата народження: {new Date(patient.dateOfBirth).toLocaleDateString('uk-UA')}
+                    Дата народження:{' '}
+                    {new Date(patient.dateOfBirth).toLocaleDateString('uk-UA')}
                   </div>
-                  {patient.phoneNumber && <div>Телефон: {patient.phoneNumber}</div>}
+                  {patient.phoneNumber && (
+                    <div>Телефон: {patient.phoneNumber}</div>
+                  )}
                 </div>
                 <div className="profile-panel__actions">
                   <button onClick={() => handleEdit(patient)}>

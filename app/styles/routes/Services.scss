@@ -1,4 +1,4 @@
-@import '../variables';
+@use '../variables' as *;
 
 .services-page {
   max-width: $container-max-width;

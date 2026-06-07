@@ -1,4 +1,4 @@
-@import '../variables';
+@use '../variables' as *;
 
 .auth-page {
   min-height: calc(100vh - 200px);
